@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -34,22 +33,9 @@ public class FinderFrame extends JFrame {
     }
 
     public void createTabs(){
-        JLabel find = new JLabel("Find");
-        JLabel replace = new JLabel("Replace");
-        JLabel findInFiles = new JLabel("Find in Files");
-
-        find.setOpaque(true);
-        find.setForeground(Color.black);
-        find.setBackground(Color.white);
-        find.setBorder(new EmptyBorder(2,5,2,5));
-        replace.setOpaque(true);
-        replace.setForeground(Color.black);
-        replace.setBackground(Color.white);
-        replace.setBorder(new EmptyBorder(2,5,2,5));
-        findInFiles.setOpaque(true);
-        findInFiles.setForeground(Color.black);
-        findInFiles.setBackground(Color.white);
-        findInFiles.setBorder(new EmptyBorder(2,5,2,5));
+        FinderTab find = new FinderTab("Find");
+        FinderTab replace = new FinderTab("Replace");
+        FinderTab findInFiles = new FinderTab("Find in Files");
 
         FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
         flow.setHgap(0);
