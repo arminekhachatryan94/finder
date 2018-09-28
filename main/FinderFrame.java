@@ -12,16 +12,25 @@ import javax.swing.border.EmptyBorder;
 public class FinderFrame extends JFrame {
     private static final int FRAME_WIDTH = 500;
     private static final int FRAME_HEIGHT = 400;
-
+    
+    public FinderMenu menu;
     public JPanel tabs;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
+
+        createMenu();
         createTabs();
-        getContentPane().add(tabs, BorderLayout.PAGE_START);
+
+        getContentPane().add(menu, BorderLayout.PAGE_START);
+        getContentPane().add(tabs, BorderLayout.CENTER);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void createMenu(){
+        menu = new FinderMenu();
     }
 
     public void createTabs(){
