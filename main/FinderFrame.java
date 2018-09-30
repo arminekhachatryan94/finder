@@ -1,11 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -42,21 +38,17 @@ public class FinderFrame extends JFrame {
     }
 
     public void createTabs(){
-        FinderTab find_tab = new FinderTab("Find");
-        find_tab.setBackground(Color.white);
-        FinderTab replace_tab = new FinderTab("Replace");
-        FinderTab findInFiles_tab = new FinderTab("Find in Files");
+        tabs = new JPanel();
 
-        MouseListener click = new tabClickListener();
-        find_tab.addMouseListener(click);
-        replace_tab.addMouseListener(click);
-        findInFiles_tab.addMouseListener(click);
+        FinderTab find_tab = new FinderTab("Find", tabs);
+        find_tab.setBackground(Color.white);
+        FinderTab replace_tab = new FinderTab("Replace", tabs);
+        FinderTab findInFiles_tab = new FinderTab("Find in Files", tabs);
 
         FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
         flow.setHgap(0);
         flow.setVgap(0);
         
-        tabs = new JPanel();
         tabs.setLayout(flow);
         tabs.setSize(500, 20);
         tabs.add(find_tab);
@@ -71,46 +63,4 @@ public class FinderFrame extends JFrame {
         find.setBackground(Color.white);
         getContentPane().add(find);
     }
-
-    public static void setBgFg( Component c, boolean set){
-        if( set ){
-            c.setBackground(Color.white);
-        } else {
-            c.setBackground(Color.lightGray);
-        }
-    }
-    
-    private class tabClickListener implements MouseListener {
-        @Override
-        public void mouseClicked(MouseEvent e){
-            JLabel l = (JLabel) e.getSource();
-            if( l.getText() == "Find"){
-                setBgFg(tabs.getComponent(0), true);
-                setBgFg(tabs.getComponent(1), false);
-                setBgFg(tabs.getComponent(2), false);
-            } else if( l.getText() == "Replace"){
-                setBgFg(tabs.getComponent(0), false);
-                setBgFg(tabs.getComponent(1), true);
-                setBgFg(tabs.getComponent(2), false);
-            } else if( l.getText() == "Find in Files") {
-                setBgFg(tabs.getComponent(0), false);
-                setBgFg(tabs.getComponent(1), false);
-                setBgFg(tabs.getComponent(2), true);
-            }
-            repaint();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e){}
-
-        @Override
-        public void mouseReleased(MouseEvent e){}
-
-        @Override
-        public void mouseEntered(MouseEvent e){}
-
-        @Override
-        public void mouseExited(MouseEvent e){}
-    }
-
 }
