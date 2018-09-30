@@ -43,7 +43,7 @@ public class FinderFrame extends JFrame {
 
     public void createTabs(){
         FinderTab find_tab = new FinderTab("Find");
-        find_tab.setBackground(Color.lightGray);
+        find_tab.setBackground(Color.white);
         FinderTab replace_tab = new FinderTab("Replace");
         FinderTab findInFiles_tab = new FinderTab("Find in Files");
 
@@ -68,15 +68,15 @@ public class FinderFrame extends JFrame {
     public void createFindPanel(){
         find = new JPanel();
         find.setSize(FRAME_WIDTH, FRAME_HEIGHT - 20);
-        find.setBackground(Color.blue);
+        find.setBackground(Color.white);
         getContentPane().add(find);
     }
 
     public static void setBgFg( Component c, boolean set){
         if( set ){
-            c.setBackground(Color.lightGray);
-        } else {
             c.setBackground(Color.white);
+        } else {
+            c.setBackground(Color.lightGray);
         }
     }
     

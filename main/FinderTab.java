@@ -7,7 +7,7 @@ public class FinderTab extends javax.swing.JLabel {
         setText(text);
         setOpaque(true);
         setForeground(Color.black);
-        setBackground(Color.white);
+        setBackground(Color.lightGray);
         setBorder(new EmptyBorder(2,5,2,5));
     }
 }
