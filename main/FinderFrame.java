@@ -17,6 +17,7 @@ public class FinderFrame extends JFrame {
     
     public FinderMenu menu;
     public JPanel tabs;
+    public JPanel find, replace, findInFiles;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -24,9 +25,12 @@ public class FinderFrame extends JFrame {
 
         createMenu();
         createTabs();
+        createFindPanel();
 
-        getContentPane().add(menu, BorderLayout.PAGE_START);
-        getContentPane().add(tabs, BorderLayout.CENTER);
+        getContentPane().add(tabs);
+        getContentPane().add(find);
+
+        setJMenuBar(menu);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -50,5 +54,11 @@ public class FinderFrame extends JFrame {
         tabs.add(find);
         tabs.add(replace);
         tabs.add(findInFiles);
+    }
+
+    public void createFindPanel(){
+        find = new JPanel();
+        find.setSize(FRAME_WIDTH, FRAME_HEIGHT - 20);
+        find.setBackground(Color.blue);
     }
 }

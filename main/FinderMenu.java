@@ -11,7 +11,9 @@ public class FinderMenu extends JMenuBar {
     
     FinderMenu(){
         menu.add(exit);
+        menu.setVisible(true);
         add(menu);
+        setVisible(true);
         addMenuListeners();
     }
     
