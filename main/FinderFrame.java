@@ -17,12 +17,12 @@ public class FinderFrame extends JFrame {
     
     public FinderMenu menu;
     public JPanel tabs;
-    public JLabel find_tab, replace_tab, findInFiles_tab;
-    public JPanel find, replace, findInFiles;
+    public FinderContent find, replace, findInFiles;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
+        setResizable(false);
 
         createMenu();
         createTabs();
@@ -30,6 +30,7 @@ public class FinderFrame extends JFrame {
         
         setJMenuBar(menu);
         pack();
+        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -39,6 +40,7 @@ public class FinderFrame extends JFrame {
 
     public void createTabs(){
         tabs = new JPanel();
+        tabs.setSize(FRAME_WIDTH, 20);
 
         FinderTab find_tab = new FinderTab("Find", tabs);
         find_tab.setBackground(Color.white);
@@ -48,19 +50,17 @@ public class FinderFrame extends JFrame {
         FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
         flow.setHgap(0);
         flow.setVgap(0);
+        flow.preferredLayoutSize(tabs);
         
         tabs.setLayout(flow);
-        tabs.setSize(500, 20);
         tabs.add(find_tab);
         tabs.add(replace_tab);
         tabs.add(findInFiles_tab);
-        getContentPane().add(tabs);
+        getContentPane().add(tabs, "North");
     }
 
     public void createFindPanel(){
-        find = new JPanel();
-        find.setSize(FRAME_WIDTH, FRAME_HEIGHT - 20);
-        find.setBackground(Color.white);
-        getContentPane().add(find);
+        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20);
+        getContentPane().add(find, "Center");
     }
 }
