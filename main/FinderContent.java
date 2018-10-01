@@ -2,14 +2,15 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 
 public class FinderContent extends JPanel {
@@ -29,11 +30,11 @@ public class FinderContent extends JPanel {
 
         if( type == "Find" ){
             createFindPanel();
-        } else if( type == "Replace" ){
+        }/* else if( type == "Replace" ){
             createReplacePanel();
         } else if( type == "Find in Files" ){
             createFindInFilesPanel();
-        }
+        }*/
     }
 
     public void createFindPanel(){
@@ -62,21 +63,16 @@ public class FinderContent extends JPanel {
         add(location);
         
         // buttons
-        JButton findNextBtn = new JButton("Find Next");
-        JButton countBtn = new JButton("Count");
-        JButton findAllOpenedDocsBtn = new JButton("<html>Find All in Opened<br>Documents</html>");
-        JButton findAllCurrentDocBtn = new JButton("<html>Find All in Current<br>Document</html>");
-        JButton closeBtn = new JButton("Close");
+        FinderButton findNextBtn = new FinderButton("Find Next");
+        FinderButton countBtn = new FinderButton("Count");
+        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>");
+        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>");
+        FinderButton closeBtn = new FinderButton("Close");
 
-        findNextBtn.setSize(180, 30);
         findNextBtn.setBounds(310, 7, 180, 30);
-        countBtn.setSize(180, 30);
         countBtn.setBounds(310, 40, 180, 30);
-        findAllOpenedDocsBtn.setSize(180, 50);
         findAllOpenedDocsBtn.setBounds(310, 73, 180, 50);
-        findAllCurrentDocBtn.setSize(180, 50);
         findAllCurrentDocBtn.setBounds(310, 126, 180, 50);
-        closeBtn.setSize(180, 30);
         closeBtn.setBounds(310, 179, 180, 30);
 
         add(countBtn);
@@ -93,6 +89,4 @@ public class FinderContent extends JPanel {
     public void createFindInFilesPanel(){
         ;
     }
-
-
 }
