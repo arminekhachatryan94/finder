@@ -19,11 +19,11 @@ public class FinderContent extends JPanel {
     public String type;
     public int WIDTH;
     public int HEIGHT;
-    public String text;
-    public String location;
+    public JTextArea text;
+    public JTextArea location;
     public DirectoryModal dir_modal;
 
-    FinderContent(String type, int width, int height, String text, String location, DirectoryModal dir_modal){
+    FinderContent(String type, int width, int height, JTextArea text, JTextArea location, DirectoryModal dir_modal){
         this.type = type;
         this.WIDTH = width;
         this.HEIGHT = height;
@@ -51,12 +51,10 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(20, 10, 70, 20);
         add(findWhat);
 
-        JTextArea jtext = new JTextArea(1, 15);
-        jtext.setText(text);
-        jtext.setBorder(BorderFactory.createLineBorder(Color.black));
-        jtext.setBackground(Color.white);
-        jtext.setBounds(100, 10, 200, 20);
-        add(jtext);
+        text.setBorder(BorderFactory.createLineBorder(Color.black));
+        text.setBackground(Color.white);
+        text.setBounds(100, 10, 200, 20);
+        add(text);
 
         // row 2
         JLabel findWhere = new JLabel("Directory:");
@@ -64,12 +62,10 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(20, 35, 70, 20);
         add(findWhere);
 
-        JTextArea jlocation = new JTextArea(1, 15);
-        jlocation.setText(location);
-        jlocation.setBorder(BorderFactory.createLineBorder(Color.black));
-        jlocation.setBackground(Color.white);
-        jlocation.setBounds(100, 35, 200, 20);
-        add(jlocation);
+        location.setBorder(BorderFactory.createLineBorder(Color.black));
+        location.setBackground(Color.white);
+        location.setBounds(100, 35, 200, 20);
+        add(location);
         
         // buttons
         FinderButton findNextBtn = new FinderButton("Find Next", text, location, dir_modal);

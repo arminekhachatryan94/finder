@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 public class FinderFrame extends JFrame {
@@ -18,8 +19,8 @@ public class FinderFrame extends JFrame {
     public FinderMenu menu;
     public JPanel tabs;
     public FinderContent find, replace, findInFiles;
-    public String text;
-    public String location;
+    public JTextArea text;
+    public JTextArea location;
 
     public DirectoryModal dir_modal;
 
@@ -28,7 +29,8 @@ public class FinderFrame extends JFrame {
         setBackground(Color.white);
         setResizable(false);
 
-        location = new String("");
+        text = new JTextArea("");
+        location = new JTextArea("");
 
         createMenu();
         createTabs();

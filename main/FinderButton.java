@@ -2,14 +2,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class FinderButton extends JButton implements ActionListener {
     public String btnText;
-    public String text;
-    public String location;
+    public JTextArea text;
+    public JTextArea location;
     public DirectoryModal dir_modal;
 
-    FinderButton(String btnText, String text, String location, DirectoryModal dir_modal){
+    FinderButton(String btnText, JTextArea text, JTextArea location, DirectoryModal dir_modal){
         this.btnText = btnText;
         this.text = text;
         this.location = location;
@@ -28,8 +29,7 @@ public class FinderButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         if(command == "Find Next"){
-            System.out.println(command);
-            System.out.println(location);
+            System.out.println(location.getText());
         }
     }
 }
