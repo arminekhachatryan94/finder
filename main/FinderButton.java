@@ -4,11 +4,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class FinderButton extends JButton implements ActionListener {
-    String text;
-    FinderButton(String text){
+    public String btnText;
+    public String text;
+    public String location;
+    public DirectoryModal dir_modal;
+
+    FinderButton(String btnText, String text, String location, DirectoryModal dir_modal){
+        this.btnText = btnText;
         this.text = text;
-        setText(text);
-        if( text.contains("<br>")){
+        this.location = location;
+        this.dir_modal = dir_modal;
+
+        setText(btnText);
+        if( btnText.contains("<br>")){
             setSize(180, 30);
         } else {
             setSize(180, 50);
@@ -19,6 +27,9 @@ public class FinderButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
-        System.out.println(command);
+        if(command == "Find Next"){
+            System.out.println(command);
+            System.out.println(location);
+        }
     }
 }

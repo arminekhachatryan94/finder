@@ -18,11 +18,17 @@ public class FinderFrame extends JFrame {
     public FinderMenu menu;
     public JPanel tabs;
     public FinderContent find, replace, findInFiles;
+    public String text;
+    public String location;
+
+    public DirectoryModal dir_modal;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
         setResizable(false);
+
+        location = new String("");
 
         createMenu();
         createTabs();
@@ -60,7 +66,7 @@ public class FinderFrame extends JFrame {
     }
 
     public void createFindPanel(){
-        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20);
+        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location, dir_modal);
         getContentPane().add(find, "Center");
     }
 }

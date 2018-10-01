@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -17,13 +19,18 @@ public class FinderContent extends JPanel {
     public String type;
     public int WIDTH;
     public int HEIGHT;
-    public static JTextArea text;
-    public static JTextArea location;
+    public String text;
+    public String location;
+    public DirectoryModal dir_modal;
 
-    FinderContent(String type, int width, int height){
+    FinderContent(String type, int width, int height, String text, String location, DirectoryModal dir_modal){
         this.type = type;
         this.WIDTH = width;
         this.HEIGHT = height;
+        this.text = text;
+        this.location = location;
+        this.dir_modal = dir_modal;
+
         setSize(new Dimension(width, height));
         setBackground(Color.white);
         setLayout(null);
@@ -44,11 +51,12 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(20, 10, 70, 20);
         add(findWhat);
 
-        text = new JTextArea(1, 15);
-        text.setBorder(BorderFactory.createLineBorder(Color.black));
-        text.setBackground(Color.white);
-        text.setBounds(100, 10, 200, 20);
-        add(text);
+        JTextArea jtext = new JTextArea(1, 15);
+        jtext.setText(text);
+        jtext.setBorder(BorderFactory.createLineBorder(Color.black));
+        jtext.setBackground(Color.white);
+        jtext.setBounds(100, 10, 200, 20);
+        add(jtext);
 
         // row 2
         JLabel findWhere = new JLabel("Directory:");
@@ -56,18 +64,19 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(20, 35, 70, 20);
         add(findWhere);
 
-        location = new JTextArea(1, 15);
-        location.setBorder(BorderFactory.createLineBorder(Color.black));
-        location.setBackground(Color.white);
-        location.setBounds(100, 35, 200, 20);
-        add(location);
+        JTextArea jlocation = new JTextArea(1, 15);
+        jlocation.setText(location);
+        jlocation.setBorder(BorderFactory.createLineBorder(Color.black));
+        jlocation.setBackground(Color.white);
+        jlocation.setBounds(100, 35, 200, 20);
+        add(jlocation);
         
         // buttons
-        FinderButton findNextBtn = new FinderButton("Find Next");
-        FinderButton countBtn = new FinderButton("Count");
-        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>");
-        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>");
-        FinderButton closeBtn = new FinderButton("Close");
+        FinderButton findNextBtn = new FinderButton("Find Next", text, location, dir_modal);
+        FinderButton countBtn = new FinderButton("Count", text, location, dir_modal);
+        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>", text, location, dir_modal);
+        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>", text, location, dir_modal);
+        FinderButton closeBtn = new FinderButton("Close", text, location, dir_modal);
 
         findNextBtn.setBounds(310, 7, 180, 30);
         countBtn.setBounds(310, 40, 180, 30);
