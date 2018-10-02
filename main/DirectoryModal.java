@@ -19,7 +19,9 @@ public class DirectoryModal extends JFrame {
 
     public JPanel panel;
 
-    DirectoryModal(String path) {
+    DirectoryModal() {}
+
+    public void openDirectory(String path){
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
         this.path = new String(path);
@@ -33,7 +35,7 @@ public class DirectoryModal extends JFrame {
         setResizable(false);
 
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     public void createPanel() {

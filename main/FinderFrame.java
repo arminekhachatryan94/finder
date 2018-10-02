@@ -31,6 +31,7 @@ public class FinderFrame extends JFrame {
 
         text = new JTextArea("");
         location = new JTextArea("");
+        dir_modal = new DirectoryModal();
 
         createMenu();
         createTabs();
