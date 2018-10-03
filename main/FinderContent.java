@@ -38,11 +38,11 @@ public class FinderContent extends JPanel {
 
         if( type == "Find" ){
             createFindPanel();
-        }/* else if( type == "Replace" ){
+        } else if( type == "Replace" ){
             createReplacePanel();
         } else if( type == "Find in Files" ){
             createFindInFilesPanel();
-        }*/
+        }
     }
 
     public void createFindPanel(){
@@ -93,10 +93,16 @@ public class FinderContent extends JPanel {
     }
 
     public void createReplacePanel() {
-        ;
+        JLabel l = new JLabel();
+        l.setText("Replace");
+        l.setBounds(100, 100, 100, 100);
+        add(l);
     }
 
     public void createFindInFilesPanel(){
-        ;
+        JLabel l = new JLabel();
+        l.setText("Find in Files");
+        l.setBounds(100, 100, 100, 100);
+        add(l);
     }
 }

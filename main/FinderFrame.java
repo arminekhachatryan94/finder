@@ -18,7 +18,7 @@ public class FinderFrame extends JFrame {
     
     public FinderMenu menu;
     public JPanel tabs;
-    public FinderContent find, replace, findInFiles;
+    public FinderContent[] contents;
     public JTextArea text;
     public JTextArea location;
 
@@ -29,10 +29,18 @@ public class FinderFrame extends JFrame {
 
         text = new JTextArea("");
         location = new JTextArea("");
+        
 
         createMenu();
-        createTabs();
+
+        contents = new FinderContent[3];
         createFindPanel();
+        createReplacePanel();
+        createFindInFilesPanel();
+
+        createTabs();
+        
+        getContentPane().add(contents[0], "Center");
         
         setJMenuBar(menu);
         pack();
@@ -48,10 +56,10 @@ public class FinderFrame extends JFrame {
         tabs = new JPanel();
         tabs.setSize(FRAME_WIDTH, 20);
 
-        FinderTab find_tab = new FinderTab("Find", tabs);
+        FinderTab find_tab = new FinderTab("Find", tabs, this, contents);
         find_tab.setBackground(Color.white);
-        FinderTab replace_tab = new FinderTab("Replace", tabs);
-        FinderTab findInFiles_tab = new FinderTab("Find in Files", tabs);
+        FinderTab replace_tab = new FinderTab("Replace", tabs, this, contents);
+        FinderTab findInFiles_tab = new FinderTab("Find in Files", tabs, this, contents);
 
         FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
         flow.setHgap(0);
@@ -66,7 +74,14 @@ public class FinderFrame extends JFrame {
     }
 
     public void createFindPanel(){
-        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
-        getContentPane().add(find, "Center");
+        contents[0] = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
+    }
+
+    public void createReplacePanel(){
+        contents[1] = new FinderContent("Replace", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
+    }
+
+    public void createFindInFilesPanel(){
+        contents[2] = new FinderContent("Find in Files", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
     }
 }

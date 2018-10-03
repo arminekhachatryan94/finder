@@ -9,9 +9,15 @@ import javax.swing.border.EmptyBorder;
 
 public class FinderTab extends JLabel implements MouseListener {
     JPanel tabs;
+    FinderContent contents[];
+    FinderFrame frame;
 
-    public FinderTab(String text, JPanel tabs){
+    public FinderTab(String text, JPanel tabs, FinderFrame frame, FinderContent[] contents){
         this.tabs = tabs;
+        this.frame = frame;
+        this.contents = contents.clone();
+
+        System.out.println(this.contents[0].toString());
 
         setText(text);
         setOpaque(true);
@@ -37,16 +43,24 @@ public class FinderTab extends JLabel implements MouseListener {
                 setBgFg(tabs.getComponent(0), true);
                 setBgFg(tabs.getComponent(1), false);
                 setBgFg(tabs.getComponent(2), false);
+                frame.remove(frame.getContentPane().getComponents()[1]);
+                frame.add(contents[0], "Center");
             } else if( l.getText() == "Replace"){
                 setBgFg(tabs.getComponent(0), false);
                 setBgFg(tabs.getComponent(1), true);
                 setBgFg(tabs.getComponent(2), false);
+                frame.remove(frame.getContentPane().getComponents()[1]);
+                frame.add(contents[1], "Center");
             } else if( l.getText() == "Find in Files") {
                 setBgFg(tabs.getComponent(0), false);
                 setBgFg(tabs.getComponent(1), false);
                 setBgFg(tabs.getComponent(2), true);
+                frame.remove(frame.getContentPane().getComponents()[1]);
+                frame.add(contents[2], "Center");
             }
             repaint();
+            frame.validate();
+            frame.repaint();
         }
 
         @Override
