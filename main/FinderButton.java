@@ -24,7 +24,7 @@ public class FinderButton extends JButton implements ActionListener {
     FinderButton(String btnText, JTextArea text, JTextArea location){
         if( btnText == "..."){
             this.fileChooser = new JFileChooser();
-            this.fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("All Files", "java", "cpp", "txt", "html", "css", "js", "cfg"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("Java", "java"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("C++", "cpp"));
