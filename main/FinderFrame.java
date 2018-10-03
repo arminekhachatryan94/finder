@@ -22,8 +22,6 @@ public class FinderFrame extends JFrame {
     public JTextArea text;
     public JTextArea location;
 
-    public DirectoryModal dir_modal;
-
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
@@ -31,7 +29,6 @@ public class FinderFrame extends JFrame {
 
         text = new JTextArea("");
         location = new JTextArea("");
-        dir_modal = new DirectoryModal();
 
         createMenu();
         createTabs();
@@ -69,7 +66,7 @@ public class FinderFrame extends JFrame {
     }
 
     public void createFindPanel(){
-        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location, dir_modal);
+        find = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
         getContentPane().add(find, "Center");
     }
 }

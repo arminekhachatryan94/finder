@@ -8,13 +8,5 @@ public class Finder {
         FinderFrame frame = new FinderFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
-        /*
-        File folder = FileSystemView.getFileSystemView().getHomeDirectory();
-
-        DirectoryModal modal = new DirectoryModal(folder.getAbsolutePath());
-        modal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        modal.setVisible(true);
-        */
     }
 }

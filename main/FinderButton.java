@@ -1,25 +1,43 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class FinderButton extends JButton implements ActionListener {
     public String btnText;
     public JTextArea text;
     public JTextArea location;
-    public DirectoryModal dir_modal;
 
-    FinderButton(String btnText, JTextArea text, JTextArea location, DirectoryModal dir_modal){
+    public int returnValue;
+    public JFileChooser fileChooser;
+
+    FinderButton(String btnText, JTextArea text, JTextArea location){
+        if( btnText == "..."){
+            this.fileChooser = new JFileChooser();
+            this.fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("All Files", "java", "cpp", "txt", "html", "css", "js", "cfg"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("Java", "java"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("C++", "cpp"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("Text", "txt"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("HTML", "html"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("CSS", "css"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("Javascript", "js"));
+            this.fileChooser.setFileFilter(new FileNameExtensionFilter("CFG", "cfg"));
+            this.fileChooser.setAcceptAllFileFilterUsed(false);
+        }
         this.btnText = btnText;
         this.text = text;
         this.location = location;
-        this.dir_modal = dir_modal;
 
         setText(btnText);
         if( btnText.contains("<br>")){
@@ -36,16 +54,9 @@ public class FinderButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         if(command == "..."){
-            System.out.println(location.getText());
-            File f = new File(location.getText());
-            if( f.exists()){
-                dir_modal.openDirectory(location.getText());
-                dir_modal.setVisible(true);
-            } else if( location.getText().isEmpty() ){
-                dir_modal.openDirectory(FileSystemView.getFileSystemView().getHomeDirectory().getPath());
-                dir_modal.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "File path does not exist");
+            returnValue = fileChooser.showOpenDialog(null);
+            if( returnValue == JFileChooser.APPROVE_OPTION){
+                location.setText(fileChooser.getSelectedFile().getPath());
             }
         }
     }

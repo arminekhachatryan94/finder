@@ -9,9 +9,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -22,15 +24,13 @@ public class FinderContent extends JPanel {
     public int HEIGHT;
     public JTextArea text;
     public JTextArea location;
-    public DirectoryModal dir_modal;
 
-    FinderContent(String type, int width, int height, JTextArea text, JTextArea location, DirectoryModal dir_modal){
+    FinderContent(String type, int width, int height, JTextArea text, JTextArea location){
         this.type = type;
         this.WIDTH = width;
         this.HEIGHT = height;
         this.text = text;
         this.location = location;
-        this.dir_modal = dir_modal;
 
         setSize(new Dimension(width, height));
         setBackground(Color.white);
@@ -68,16 +68,16 @@ public class FinderContent extends JPanel {
         location.setBounds(90, 35, 150, 20);
         add(location);
 
-        FinderButton chooseDir = new FinderButton("...", text, location, dir_modal);
-        chooseDir.setBounds(250, 30, 50, 30);
-        add(chooseDir);
+        FinderButton chooser = new FinderButton("...", text, location);
+        chooser.setBounds(250, 30, 50, 30);
+        add(chooser);
 
         // buttons
-        FinderButton findNextBtn = new FinderButton("Find Next", text, location, dir_modal);
-        FinderButton countBtn = new FinderButton("Count", text, location, dir_modal);
-        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>", text, location, dir_modal);
-        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>", text, location, dir_modal);
-        FinderButton closeBtn = new FinderButton("Close", text, location, dir_modal);
+        FinderButton findNextBtn = new FinderButton("Find Next", text, location);
+        FinderButton countBtn = new FinderButton("Count", text, location);
+        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>", text, location);
+        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>", text, location);
+        FinderButton closeBtn = new FinderButton("Close", text, location);
 
         findNextBtn.setBounds(310, 7, 180, 30);
         countBtn.setBounds(310, 40, 180, 30);
