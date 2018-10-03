@@ -1,6 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Image;
 import java.io.File;
 
@@ -46,6 +50,8 @@ public class DirectoryModal extends JFrame {
         ImageIcon dir_img = new ImageIcon(new ImageIcon("../img/dir.Default").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         ImageIcon file_img = new ImageIcon(new ImageIcon("../img/file.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 
+        MouseListener iconClick = new IconClickListener();
+
         File folder = new File(this.path);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
@@ -57,8 +63,46 @@ public class DirectoryModal extends JFrame {
                 l.setIcon(dir_img);
             }
             l.setText(listOfFiles[i].getName());
+            l.addMouseListener(iconClick);
 
             panel.add(l);
+        }
+    }
+
+    private class IconClickListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e){
+            int count = e.getClickCount();
+
+            JLabel label = (JLabel) e.getSource();
+            System.out.println(label.getText());
+
+            File f = new File(path + '/' + label.getText());
+            
+            if( count >= 2 && f.isDirectory() ){
+                path += ("/" + label.getText());
+                createPanel();
+                repaint();
+            } else {
+                ;
+            }
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e){
+            ;
+        }
+
+        public void mousePressed(MouseEvent e){
+            ;
+        }
+
+        public void mouseReleased(MouseEvent e){
+            ;
+        }
+
+        public void mouseEntered(MouseEvent e){
+            ;
         }
     }
 

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileSystemView;
 
 public class FinderButton extends JButton implements ActionListener {
     public String btnText;
@@ -23,6 +24,8 @@ public class FinderButton extends JButton implements ActionListener {
         setText(btnText);
         if( btnText.contains("<br>")){
             setSize(180, 30);
+        } else if(btnText.contains("...")) {
+            setSize(50, 30);
         } else {
             setSize(180, 50);
         }
@@ -32,11 +35,14 @@ public class FinderButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
-        if(command == "Find Next"){
+        if(command == "..."){
             System.out.println(location.getText());
             File f = new File(location.getText());
             if( f.exists()){
                 dir_modal.openDirectory(location.getText());
+                dir_modal.setVisible(true);
+            } else if( location.getText().isEmpty() ){
+                dir_modal.openDirectory(FileSystemView.getFileSystemView().getHomeDirectory().getPath());
                 dir_modal.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "File path does not exist");
