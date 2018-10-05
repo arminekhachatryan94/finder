@@ -19,17 +19,18 @@ public class FinderFrame extends JFrame {
     public FinderMenu menu;
     public JPanel tabs;
     public FinderContent[] contents;
-    public JTextArea text;
-    public JTextArea location;
+    public JTextArea findText;
+    public JTextArea path;
+    public JTextArea replaceText;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
         setResizable(false);
 
-        text = new JTextArea("");
-        location = new JTextArea("");
-        
+        findText = new JTextArea("");
+        path = new JTextArea("");
+        replaceText = new JTextArea("");
 
         createMenu();
 
@@ -74,14 +75,14 @@ public class FinderFrame extends JFrame {
     }
 
     public void createFindPanel(){
-        contents[0] = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
+        contents[0] = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path);
     }
 
     public void createReplacePanel(){
-        contents[1] = new FinderContent("Replace", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
+        contents[1] = new FinderContent("Replace", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path, replaceText);
     }
 
     public void createFindInFilesPanel(){
-        contents[2] = new FinderContent("Find in Files", FRAME_WIDTH, FRAME_HEIGHT - 20, text, location);
+        contents[2] = new FinderContent("Find in Files", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path);
     }
 }

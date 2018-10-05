@@ -17,8 +17,6 @@ public class FinderTab extends JLabel implements MouseListener {
         this.frame = frame;
         this.contents = contents.clone();
 
-        System.out.println(this.contents[0].toString());
-
         setText(text);
         setOpaque(true);
         setForeground(Color.black);
