@@ -22,26 +22,11 @@ public class FinderContent extends JPanel {
     public String type;
     public int WIDTH;
     public int HEIGHT;
-    public JTextArea findText;
-    public JTextArea replaceText;
-    public JTextArea path;
 
-    FinderContent(String type, int width, int height, JTextArea findText, JTextArea path){
+    FinderContent(String type, int width, int height){
         this.type = type;
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.findText = findText;
-        this.path = path;
-        setUp();
-    }
-
-    FinderContent(String type, int width, int height, JTextArea findText, JTextArea path, JTextArea replaceText){
-        this.type = type;
-        this.WIDTH = width;
-        this.HEIGHT = height;
-        this.findText = findText;
-        this.path = path;
-        this.replaceText = replaceText;
         setUp();
     }
 
@@ -61,62 +46,160 @@ public class FinderContent extends JPanel {
 
     public void createFindPanel(){
         // row 1
-        JLabel findWhat = new JLabel("Find what:");
+        JLabel findWhat = new JLabel("Find:");
         findWhat.setBackground(Color.red);
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
+        JTextArea findText = new JTextArea("");
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
         add(findText);
 
         // row 2
-        JLabel findWhere = new JLabel("Directory:");
+        JLabel findWhere = new JLabel("Path:");
         findWhere.setBackground(Color.red);
         findWhere.setBounds(10, 35, 70, 20);
         add(findWhere);
 
+        JTextArea path = new JTextArea("");
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 35, 150, 20);
         add(path);
 
-        FinderButton chooser = new FinderButton("...", findText, path);
+        FinderButton chooser = new FinderButton("...", "find", findText, path, null);
         chooser.setBounds(250, 30, 50, 30);
         add(chooser);
 
         // buttons
-        FinderButton findNextBtn = new FinderButton("Find Next", findText, path);
-        FinderButton countBtn = new FinderButton("Count", findText, path);
-        FinderButton findAllOpenedDocsBtn = new FinderButton("<html>Find All in Opened<br>Documents</html>", findText, path);
-        FinderButton findAllCurrentDocBtn = new FinderButton("<html>Find All in Current<br>Document</html>", findText, path);
-        FinderButton closeBtn = new FinderButton("Close", findText, path);
+        FinderButton findBtn = new FinderButton("Find", "find", findText, path, null);
+        FinderButton countBtn = new FinderButton("Count", "find", findText, path, null);
+        FinderButton closeBtn = new FinderButton("Close", "find", findText, path, null);
 
-        findNextBtn.setBounds(310, 7, 180, 30);
+        findBtn.setBounds(310, 7, 180, 30);
         countBtn.setBounds(310, 40, 180, 30);
-        findAllOpenedDocsBtn.setBounds(310, 73, 180, 50);
-        findAllCurrentDocBtn.setBounds(310, 126, 180, 50);
-        closeBtn.setBounds(310, 179, 180, 30);
+        closeBtn.setBounds(310, 73, 180, 30);
 
+        add(findBtn);
         add(countBtn);
-        add(findNextBtn);
-        add(findAllOpenedDocsBtn);
-        add(findAllCurrentDocBtn);
         add(closeBtn);
     }
 
     public void createReplacePanel() {
-        JLabel l = new JLabel();
-        l.setText("Replace");
-        l.setBounds(100, 100, 100, 100);
-        add(l);
+        // row 1
+        JLabel findWhat = new JLabel("Find:");
+        findWhat.setBackground(Color.red);
+        findWhat.setBounds(10, 10, 70, 20);
+        add(findWhat);
+
+        JTextArea findText = new JTextArea("");
+        findText.setBorder(BorderFactory.createLineBorder(Color.black));
+        findText.setBackground(Color.white);
+        findText.setBounds(90, 10, 150, 20);
+        add(findText);
+        
+        // row 2
+        JLabel replaceWhat = new JLabel("Replace:");
+        replaceWhat.setBackground(Color.red);
+        replaceWhat.setBounds(10, 35, 70, 20);
+        add(replaceWhat);
+
+        JTextArea replaceText = new JTextArea("");
+        replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
+        replaceText.setBackground(Color.white);
+        replaceText.setBounds(90, 35, 150, 20);
+        add(replaceText);
+
+        // row 3
+        JLabel findWhere = new JLabel("Path:");
+        findWhere.setBackground(Color.red);
+        findWhere.setBounds(10, 60, 70, 20);
+        add(findWhere);
+
+        JTextArea path = new JTextArea("");
+        path.setBorder(BorderFactory.createLineBorder(Color.black));
+        path.setBackground(Color.white);
+        path.setBounds(90, 60, 150, 20);
+        add(path);
+
+        FinderButton chooser = new FinderButton("...", "replace", findText, path, replaceText);
+        chooser.setBounds(250, 56, 50, 30);
+        add(chooser);
+
+        // buttons on right column
+        FinderButton replaceAllBtn = new FinderButton("Replace All", "replace", findText, path, replaceText);
+        FinderButton countBtn = new FinderButton("Count", "replace", findText, path, replaceText);
+        FinderButton closeBtn = new FinderButton("Close", "replace", findText, path, replaceText);
+
+        replaceAllBtn.setBounds(310, 7, 180, 30);
+        countBtn.setBounds(310, 40, 180, 30);
+        closeBtn.setBounds(310, 73, 180, 30);
+
+        add(replaceAllBtn);
+        add(countBtn);
+        add(closeBtn);
     }
 
     public void createFindInFilesPanel(){
-        JLabel l = new JLabel();
-        l.setText("Find in Files");
-        l.setBounds(100, 100, 100, 100);
-        add(l);
+        // row 1
+        JLabel findWhat = new JLabel("Find:");
+        findWhat.setBackground(Color.red);
+        findWhat.setBounds(10, 10, 70, 20);
+        add(findWhat);
+
+        JTextArea findText = new JTextArea("");
+        findText.setBorder(BorderFactory.createLineBorder(Color.black));
+        findText.setBackground(Color.white);
+        findText.setBounds(90, 10, 150, 20);
+        add(findText);
+
+        // row 2
+        JLabel replaceWhat = new JLabel("Replace:");
+        replaceWhat.setBackground(Color.red);
+        replaceWhat.setBounds(10, 35, 70, 20);
+        add(replaceWhat);
+
+        JTextArea replaceText = new JTextArea("");
+        replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
+        replaceText.setBackground(Color.white);
+        replaceText.setBounds(90, 35, 150, 20);
+        add(replaceText);
+
+        // row 3
+        JLabel findWhere = new JLabel("Path:");
+        findWhere.setBackground(Color.red);
+        findWhere.setBounds(10, 35, 70, 20);
+        add(findWhere);
+
+        JTextArea path = new JTextArea("");
+        path.setBorder(BorderFactory.createLineBorder(Color.black));
+        path.setBackground(Color.white);
+        path.setBounds(90, 50, 150, 20);
+        add(path);
+
+        FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText);
+        chooser.setBounds(250, 50, 50, 30);
+        add(chooser);
+
+        // buttons
+        FinderButton findAllBtn = new FinderButton("Find All", "find all", findText, path, replaceText);
+        FinderButton replaceAllBtn = new FinderButton("Replace All", "find all", findText, path, replaceText);
+        FinderButton countBtn = new FinderButton("Count", "find all", findText, path, replaceText);
+        FinderButton countFilesBtn = new FinderButton("Count Files", "find all", findText, path, replaceText);
+        FinderButton closeBtn = new FinderButton("Close", "find all", findText, path, replaceText);
+
+        findAllBtn.setBounds(310, 7, 180, 30);
+        replaceAllBtn.setBounds(310, 40, 180, 30);
+        countBtn.setBounds(310, 73, 180, 30);
+        countFilesBtn.setBounds(310, 106, 180, 30);
+        closeBtn.setBounds(310, 139, 180, 30);
+
+        add(findAllBtn);
+        add(replaceAllBtn);
+        add(countBtn);
+        add(countFilesBtn);
+        add(closeBtn);
     }
 }

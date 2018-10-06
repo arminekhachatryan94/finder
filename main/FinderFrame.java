@@ -75,14 +75,14 @@ public class FinderFrame extends JFrame {
     }
 
     public void createFindPanel(){
-        contents[0] = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path);
+        contents[0] = new FinderContent("Find", FRAME_WIDTH, FRAME_HEIGHT - 20);
     }
 
     public void createReplacePanel(){
-        contents[1] = new FinderContent("Replace", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path, replaceText);
+        contents[1] = new FinderContent("Replace", FRAME_WIDTH, FRAME_HEIGHT - 20);
     }
 
     public void createFindInFilesPanel(){
-        contents[2] = new FinderContent("Find in Files", FRAME_WIDTH, FRAME_HEIGHT - 20, findText, path);
+        contents[2] = new FinderContent("Find in Files", FRAME_WIDTH, FRAME_HEIGHT - 20);
     }
 }

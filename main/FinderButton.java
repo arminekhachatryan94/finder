@@ -14,32 +14,39 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class FinderButton extends JButton implements ActionListener {
-    public String btnText;
-    public JTextArea text;
-    public JTextArea location;
+    public String btnText = null;
+    public String belongsTo = null;
+    public JTextArea find = null;
+    public JTextArea replace = null;
+    public JTextArea path = null;
 
     public int returnValue;
     public JFileChooser fileChooser;
 
-    FinderButton(String btnText, JTextArea text, JTextArea location){
+    FinderButton(String btnText, String belongsTo, JTextArea find, JTextArea path, JTextArea replace){
         if( btnText == "..."){
             this.fileChooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "cpp", "txt", "html", "css", "js", "cfg");
-            this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
+            if( belongsTo == "find all" ){
+                this.fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            } else {
+                this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            }
             this.fileChooser.setFileFilter(filter);
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("Java", "java"));
-            this.fileChooser.setFileFilter(new FileNameExtensionFilter("C++", "cpp"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("Text", "txt"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("HTML", "html"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("CSS", "css"));
-            this.fileChooser.setFileFilter(new FileNameExtensionFilter("Javascript", "js"));
             this.fileChooser.setFileFilter(new FileNameExtensionFilter("CFG", "cfg"));
             this.fileChooser.setFileFilter(filter);
             this.fileChooser.setAcceptAllFileFilterUsed(false);
+            this.fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         }
         this.btnText = btnText;
-        this.text = text;
-        this.location = location;
+        this.belongsTo = belongsTo;
+        this.find = find;
+        this.path = path;
+        this.replace = replace;
 
         setText(btnText);
         if( btnText.contains("<br>")){
@@ -58,8 +65,11 @@ public class FinderButton extends JButton implements ActionListener {
         if(command == "..."){
             returnValue = fileChooser.showOpenDialog(null);
             if( returnValue == JFileChooser.APPROVE_OPTION){
-                location.setText(fileChooser.getSelectedFile().getPath());
+                path.setText(fileChooser.getSelectedFile().getPath());
             }
+        } else if(command == "Find"){
+            // if( this.path == )
+            System.out.println(command);
         }
     }
 }
