@@ -13,7 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.event.ActionEvent;
@@ -52,7 +52,7 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextArea findText = new JTextArea("");
+        JTextField findText = new JTextField("");
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
@@ -64,7 +64,7 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 35, 70, 20);
         add(findWhere);
 
-        JTextArea path = new JTextArea("");
+        JTextField path = new JTextField("");
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 35, 150, 20);
@@ -100,7 +100,7 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextArea findText = new JTextArea("");
+        JTextField findText = new JTextField("");
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
@@ -112,7 +112,7 @@ public class FinderContent extends JPanel {
         replaceWhat.setBounds(10, 35, 70, 20);
         add(replaceWhat);
 
-        JTextArea replaceText = new JTextArea("");
+        JTextField replaceText = new JTextField("");
         replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
         replaceText.setBackground(Color.white);
         replaceText.setBounds(90, 35, 150, 20);
@@ -124,7 +124,7 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 60, 70, 20);
         add(findWhere);
 
-        JTextArea path = new JTextArea("");
+        JTextField path = new JTextField("");
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 60, 150, 20);
@@ -160,7 +160,7 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextArea findText = new JTextArea("");
+        JTextField findText = new JTextField("");
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
@@ -172,7 +172,7 @@ public class FinderContent extends JPanel {
         replaceWhat.setBounds(10, 35, 70, 20);
         add(replaceWhat);
 
-        JTextArea replaceText = new JTextArea("");
+        JTextField replaceText = new JTextField("");
         replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
         replaceText.setBackground(Color.white);
         replaceText.setBounds(90, 35, 150, 20);
@@ -184,7 +184,7 @@ public class FinderContent extends JPanel {
         filtersLabel.setBounds(10, 60, 70, 20);
         add(filtersLabel);
 
-        JTextArea filters = new JTextArea("");
+        JTextField filters = new JTextField("");
         filters.setBorder(BorderFactory.createLineBorder(Color.black));
         filters.setBackground(Color.white);
         filters.setBounds(90, 60, 150, 20);
@@ -196,7 +196,7 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 85, 70, 20);
         add(findWhere);
 
-        JTextArea path = new JTextArea("");
+        JTextField path = new JTextField("");
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 85, 150, 20);

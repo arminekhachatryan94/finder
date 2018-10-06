@@ -9,7 +9,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -17,16 +17,16 @@ import javax.swing.filechooser.FileSystemView;
 public class FinderButton extends JButton implements ActionListener {
     public String btnText = null;
     public String belongsTo = null; // panel button belongs to
-    public JTextArea find = null;
-    public JTextArea replace = null;
-    public JTextArea path = null;
-    public JTextArea filters = null;
+    public JTextField find = null;
+    public JTextField replace = null;
+    public JTextField path = null;
+    public JTextField filters = null;
     public JCheckBox[] match = null;
 
     public int returnValue;
     public JFileChooser fileChooser;
 
-    FinderButton(String btnText, String belongsTo, JTextArea find, JTextArea path, JTextArea replace, JTextArea filters, JCheckBox[] match){
+    FinderButton(String btnText, String belongsTo, JTextField find, JTextField path, JTextField replace, JTextField filters, JCheckBox[] match){
         if( btnText == "..."){
             this.fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
@@ -65,6 +65,25 @@ public class FinderButton extends JButton implements ActionListener {
         }
         addActionListener(this);
     }
+    
+    public boolean isValidFile(){
+        File f = new File(this.path.getText());
+        if( !f.isFile() && f.exists() ){
+            JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
+            return false;
+        } else if( f.isFile() ) {
+            return true;
+        } else {
+            JOptionPane.showConfirmDialog(null, "Error: Invalid path.");
+            return false;
+        }
+    }
+
+    public void findWord(){
+        if( isValidFile() ){
+            ;
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e){
@@ -75,8 +94,7 @@ public class FinderButton extends JButton implements ActionListener {
                 path.setText(fileChooser.getSelectedFile().getPath());
             }
         } else if(command == "Find"){
-            // if( this.path == )
-            System.out.println(command);
+            findWord();
         }
     }
 }

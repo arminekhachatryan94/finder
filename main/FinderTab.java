@@ -34,42 +34,42 @@ public class FinderTab extends JLabel implements MouseListener {
         }
     }
 
-        @Override
-        public void mouseClicked(MouseEvent e){
-            JLabel l = (JLabel) e.getSource();
-            if( l.getText() == "Find"){
-                setBgFg(tabs.getComponent(0), true);
-                setBgFg(tabs.getComponent(1), false);
-                setBgFg(tabs.getComponent(2), false);
-                frame.remove(frame.getContentPane().getComponents()[1]);
-                frame.add(contents[0], "Center");
-            } else if( l.getText() == "Replace"){
-                setBgFg(tabs.getComponent(0), false);
-                setBgFg(tabs.getComponent(1), true);
-                setBgFg(tabs.getComponent(2), false);
-                frame.remove(frame.getContentPane().getComponents()[1]);
-                frame.add(contents[1], "Center");
-            } else if( l.getText() == "Find in Files") {
-                setBgFg(tabs.getComponent(0), false);
-                setBgFg(tabs.getComponent(1), false);
-                setBgFg(tabs.getComponent(2), true);
-                frame.remove(frame.getContentPane().getComponents()[1]);
-                frame.add(contents[2], "Center");
-            }
-            repaint();
-            frame.validate();
-            frame.repaint();
+    @Override
+    public void mouseClicked(MouseEvent e){
+        JLabel l = (JLabel) e.getSource();
+        if( l.getText() == "Find"){
+            setBgFg(tabs.getComponent(0), true);
+            setBgFg(tabs.getComponent(1), false);
+            setBgFg(tabs.getComponent(2), false);
+            frame.remove(frame.getContentPane().getComponents()[1]);
+            frame.add(contents[0], "Center");
+        } else if( l.getText() == "Replace"){
+            setBgFg(tabs.getComponent(0), false);
+            setBgFg(tabs.getComponent(1), true);
+            setBgFg(tabs.getComponent(2), false);
+            frame.remove(frame.getContentPane().getComponents()[1]);
+            frame.add(contents[1], "Center");
+        } else if( l.getText() == "Find in Files") {
+            setBgFg(tabs.getComponent(0), false);
+            setBgFg(tabs.getComponent(1), false);
+            setBgFg(tabs.getComponent(2), true);
+            frame.remove(frame.getContentPane().getComponents()[1]);
+            frame.add(contents[2], "Center");
         }
+        repaint();
+        frame.validate();
+        frame.repaint();
+    }
 
-        @Override
-        public void mousePressed(MouseEvent e){}
+    @Override
+    public void mousePressed(MouseEvent e){}
 
-        @Override
-        public void mouseReleased(MouseEvent e){}
+    @Override
+    public void mouseReleased(MouseEvent e){}
 
-        @Override
-        public void mouseEntered(MouseEvent e){}
+    @Override
+    public void mouseEntered(MouseEvent e){}
 
-        @Override
-        public void mouseExited(MouseEvent e){}
+    @Override
+    public void mouseExited(MouseEvent e){}
 }

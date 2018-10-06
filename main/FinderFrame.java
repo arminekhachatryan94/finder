@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class FinderFrame extends JFrame {
@@ -19,18 +19,18 @@ public class FinderFrame extends JFrame {
     public FinderMenu menu;
     public JPanel tabs;
     public FinderContent[] contents;
-    public JTextArea findText;
-    public JTextArea path;
-    public JTextArea replaceText;
+    public JTextField findText;
+    public JTextField path;
+    public JTextField replaceText;
 
     public FinderFrame() {
         setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         setBackground(Color.white);
         setResizable(false);
 
-        findText = new JTextArea("");
-        path = new JTextArea("");
-        replaceText = new JTextArea("");
+        findText = new JTextField("");
+        path = new JTextField("");
+        replaceText = new JTextField("");
 
         createMenu();
 
