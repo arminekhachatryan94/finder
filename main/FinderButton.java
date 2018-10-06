@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,15 +16,17 @@ import javax.swing.filechooser.FileSystemView;
 
 public class FinderButton extends JButton implements ActionListener {
     public String btnText = null;
-    public String belongsTo = null;
+    public String belongsTo = null; // panel button belongs to
     public JTextArea find = null;
     public JTextArea replace = null;
     public JTextArea path = null;
+    public JTextArea filters = null;
+    public JCheckBox[] match = null;
 
     public int returnValue;
     public JFileChooser fileChooser;
 
-    FinderButton(String btnText, String belongsTo, JTextArea find, JTextArea path, JTextArea replace){
+    FinderButton(String btnText, String belongsTo, JTextArea find, JTextArea path, JTextArea replace, JTextArea filters, JCheckBox[] match){
         if( btnText == "..."){
             this.fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
@@ -47,6 +50,10 @@ public class FinderButton extends JButton implements ActionListener {
         this.find = find;
         this.path = path;
         this.replace = replace;
+        this.filters = filters;
+        this.match = new JCheckBox[2];
+        this.match[0] = match[0];
+        this.match[1] = match[1];
 
         setText(btnText);
         if( btnText.contains("<br>")){

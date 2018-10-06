@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -69,22 +70,27 @@ public class FinderContent extends JPanel {
         path.setBounds(90, 35, 150, 20);
         add(path);
 
-        FinderButton chooser = new FinderButton("...", "find", findText, path, null);
+        JCheckBox[] match = new JCheckBox[2];
+        // row 3
+        match[0] = new JCheckBox("Match whole word only");
+        match[0].setBounds(10, 60, 200, 50);
+        add(match[0]);
+        // row 4
+        match[1] = new JCheckBox("Match case");
+        match[1].setBounds(10, 95, 200, 20);
+        add(match[1]);
+
+        // file chooser button
+        FinderButton chooser = new FinderButton("...", "find", findText, path, null, null, match);
         chooser.setBounds(250, 30, 50, 30);
         add(chooser);
 
         // buttons
-        FinderButton findBtn = new FinderButton("Find", "find", findText, path, null);
-        FinderButton countBtn = new FinderButton("Count", "find", findText, path, null);
-        FinderButton closeBtn = new FinderButton("Close", "find", findText, path, null);
+        FinderButton findBtn = new FinderButton("Find", "find", findText, path, null, null, match);
 
         findBtn.setBounds(310, 7, 180, 30);
-        countBtn.setBounds(310, 40, 180, 30);
-        closeBtn.setBounds(310, 73, 180, 30);
 
         add(findBtn);
-        add(countBtn);
-        add(closeBtn);
     }
 
     public void createReplacePanel() {
@@ -124,22 +130,27 @@ public class FinderContent extends JPanel {
         path.setBounds(90, 60, 150, 20);
         add(path);
 
-        FinderButton chooser = new FinderButton("...", "replace", findText, path, replaceText);
+        JCheckBox[] match = new JCheckBox[2];
+        // row 4
+        match[0] = new JCheckBox("Match whole word only");
+        match[0].setBounds(10, 85, 200, 50);
+        add(match[0]);
+        // row 5
+        match[1] = new JCheckBox("Match case");
+        match[1].setBounds(10, 120, 200, 20);
+        add(match[1]);
+        
+        // file chooser button
+        FinderButton chooser = new FinderButton("...", "replace", findText, path, replaceText, null, match);
         chooser.setBounds(250, 56, 50, 30);
         add(chooser);
 
         // buttons on right column
-        FinderButton replaceAllBtn = new FinderButton("Replace All", "replace", findText, path, replaceText);
-        FinderButton countBtn = new FinderButton("Count", "replace", findText, path, replaceText);
-        FinderButton closeBtn = new FinderButton("Close", "replace", findText, path, replaceText);
+        FinderButton replaceAllBtn = new FinderButton("Replace All", "replace", findText, path, replaceText, null, match);
 
         replaceAllBtn.setBounds(310, 7, 180, 30);
-        countBtn.setBounds(310, 40, 180, 30);
-        closeBtn.setBounds(310, 73, 180, 30);
 
         add(replaceAllBtn);
-        add(countBtn);
-        add(closeBtn);
     }
 
     public void createFindInFilesPanel(){
@@ -168,38 +179,52 @@ public class FinderContent extends JPanel {
         add(replaceText);
 
         // row 3
+        JLabel filtersLabel = new JLabel("Filters:");
+        filtersLabel.setBackground(Color.red);
+        filtersLabel.setBounds(10, 60, 70, 20);
+        add(filtersLabel);
+
+        JTextArea filters = new JTextArea("");
+        filters.setBorder(BorderFactory.createLineBorder(Color.black));
+        filters.setBackground(Color.white);
+        filters.setBounds(90, 60, 150, 20);
+        add(filters);
+
+        // row 4
         JLabel findWhere = new JLabel("Path:");
         findWhere.setBackground(Color.red);
-        findWhere.setBounds(10, 35, 70, 20);
+        findWhere.setBounds(10, 85, 70, 20);
         add(findWhere);
 
         JTextArea path = new JTextArea("");
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
-        path.setBounds(90, 50, 150, 20);
+        path.setBounds(90, 85, 150, 20);
         add(path);
 
-        FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText);
-        chooser.setBounds(250, 50, 50, 30);
+        JCheckBox[] match = new JCheckBox[2];
+        // row 5
+        match[0] = new JCheckBox("Match whole word only");
+        match[0].setBounds(10, 110, 200, 50);
+        add(match[0]);
+        // row 6
+        match[1] = new JCheckBox("Match case");
+        match[1].setBounds(10, 145, 200, 20);
+        add(match[1]);
+
+        // file chooser button
+        FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText, filters, match);
+        chooser.setBounds(250, 82, 50, 30);
         add(chooser);
 
         // buttons
-        FinderButton findAllBtn = new FinderButton("Find All", "find all", findText, path, replaceText);
-        FinderButton replaceAllBtn = new FinderButton("Replace All", "find all", findText, path, replaceText);
-        FinderButton countBtn = new FinderButton("Count", "find all", findText, path, replaceText);
-        FinderButton countFilesBtn = new FinderButton("Count Files", "find all", findText, path, replaceText);
-        FinderButton closeBtn = new FinderButton("Close", "find all", findText, path, replaceText);
+        FinderButton findAllBtn = new FinderButton("Find All", "find all", findText, path, replaceText, filters, match);
+        FinderButton replaceAllBtn = new FinderButton("Replace All", "find all", findText, path, replaceText, filters, match);
 
         findAllBtn.setBounds(310, 7, 180, 30);
         replaceAllBtn.setBounds(310, 40, 180, 30);
-        countBtn.setBounds(310, 73, 180, 30);
-        countFilesBtn.setBounds(310, 106, 180, 30);
-        closeBtn.setBounds(310, 139, 180, 30);
 
         add(findAllBtn);
         add(replaceAllBtn);
-        add(countBtn);
-        add(countFilesBtn);
-        add(closeBtn);
     }
 }
