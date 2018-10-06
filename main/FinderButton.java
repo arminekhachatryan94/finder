@@ -1,14 +1,26 @@
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -72,17 +84,42 @@ public class FinderButton extends JButton implements ActionListener {
             JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
             return false;
         } else if( f.isFile() ) {
-            return true;
+            int index = 0;
+            int i = this.path.getText().indexOf('.');
+            String sub = this.path.getText();
+            while( i != -1 ){
+                index = i;
+                sub = sub.substring(index+1, sub.length());
+                i = sub.indexOf('.');
+            }
+            if( sub.equals("java") || sub == "cfg" || sub.equals("txt") || sub == "html" || sub == "css" ){
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
+                return false;
+            }
         } else {
             JOptionPane.showConfirmDialog(null, "Error: Invalid path.");
             return false;
         }
     }
 
-    public void findWord(){
+    public ArrayList<String> findWord(){
+        ArrayList<String> found = new ArrayList<String>();
         if( isValidFile() ){
-            ;
+            int count = 0;
+            try (BufferedReader br = new BufferedReader(new FileReader(new File(this.path.getText())))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    count++;
+                    System.out.println(line);
+                    found.add(new String("Line " + count + ": " + line));
+                }
+            } catch( Exception e ){
+                System.out.println(e.toString());
+            }
         }
+        return found;
     }
 
     @Override
@@ -94,7 +131,19 @@ public class FinderButton extends JButton implements ActionListener {
                 path.setText(fileChooser.getSelectedFile().getPath());
             }
         } else if(command == "Find"){
-            findWord();
+            ArrayList<String> found = findWord();
+            JFrame frame = new JFrame();
+            frame.setSize(400, 400);
+            JPanel panel = new JPanel();
+            for( int i = 0; i < found.size(); i++ ){
+                JLabel label = new JLabel();
+                label.setText(found.get(i));
+                label.setSize(400, 10);
+                panel.add(label);
+            }
+            frame.add(panel);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
 }

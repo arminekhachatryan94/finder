@@ -203,14 +203,23 @@ public class FinderContent extends JPanel {
         add(path);
 
         JCheckBox[] match = new JCheckBox[2];
-        // row 5
+        //row 5
         match[0] = new JCheckBox("Match whole word only");
-        match[0].setBounds(10, 110, 200, 50);
-        add(match[0]);
-        // row 6
+        match[0].setBounds(10, 110, match[0].getWidth(), match[0].getHeight());
+        // add(match[0]);
+        
+        // // row 6
         match[1] = new JCheckBox("Match case");
-        match[1].setBounds(10, 145, 200, 20);
-        add(match[1]);
+        match[1].setBounds(10, 145, match[1].getWidth(), match[1].getHeight());
+        // add(match[1]);
+
+        JCheckBox jcb = new JCheckBox("TEST");
+        jcb.setBounds(10, 145, 200, 20);
+        add(jcb);
+
+        JCheckBox jcb2 = new JCheckBox("TEST");
+        jcb2.setBounds(10, 200, 200, 20);
+        add(jcb2);
 
         // file chooser button
         FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText, filters, match);
