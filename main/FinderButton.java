@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -118,9 +119,28 @@ public class FinderButton extends JButton implements ActionListener {
                 String line;
                 while ((line = br.readLine()) != null) {
                     count++;
-                    if(line.contains(this.find.getText())){
-                        System.out.println(line);
-                        found.add(new String("Line " + count + ": " + line));
+                    if( this.match[0].isSelected() && this.match[1].isSelected() ){
+                        String regex = ".*\\b" + this.find.getText() + "\\b.*";
+                        if(line.matches(regex)){
+                            found.add(new String("Line" + count + ": " + line));
+                        }
+                    } else if( this.match[0].isSelected() ){
+                        String regex = ".*\\b" + this.find.getText().toLowerCase() + "\\b.*";
+                        if(line.toLowerCase().matches(regex)){
+                            found.add(new String("Line" + count + ": " + line));
+                        }
+                    } else if( this.match[1].isSelected() ){
+                        if(line.contains(this.find.getText())){
+                            System.out.println(line);
+                            found.add(new String("Line " + count + ": " + line));
+                        }
+                    } else {
+                        String _word = this.find.getText().toLowerCase();
+                        String _line = line.toLowerCase();
+                        if(_line.contains(_word)){
+                            System.out.println(line);
+                            found.add(new String("Line " + count + ": " + line));
+                        }
                     }
                 }
             } catch( Exception e ){
