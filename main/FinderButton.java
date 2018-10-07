@@ -95,8 +95,11 @@ public class FinderButton extends JButton implements ActionListener {
                 sub = sub.substring(index+1, sub.length());
                 i = sub.indexOf('.');
             }
-            if( sub.equals("java") || sub == "cfg" || sub.equals("txt") || sub == "html" || sub == "css" ){
+            if( (sub.equals("java") || sub == "cfg" || sub.equals("txt") || sub == "html" || sub == "css") && this.find.getText().length() > 0 ){
                 return true;
+            } else if( this.find.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
+                return false;
             } else {
                 JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
                 return false;
@@ -123,8 +126,10 @@ public class FinderButton extends JButton implements ActionListener {
             } catch( Exception e ){
                 System.out.println(e.toString());
             }
+            return found;
+        } else {
+            return null;
         }
-        return found;
     }
 
     @Override
@@ -136,31 +141,40 @@ public class FinderButton extends JButton implements ActionListener {
                 path.setText(fileChooser.getSelectedFile().getPath());
             }
         } else if(command == "Find"){
+            // find word in a file
             ArrayList<String> found = findWord();
-            JFrame frame = new JFrame();
-            frame.setSize(400, 400);
-            JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension(400, 400));
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            if( found != null ){
+                // create a frame and display the words found
+                JFrame frame = new JFrame();
+                frame.setSize(400, 400);
+                JPanel panel = new JPanel();
+                panel.setPreferredSize(new Dimension(400, 400));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-            BorderLayout borderLayout = new BorderLayout(10, 0);
-            for( int i = 0; i < found.size(); i++ ){
-                JLabel label = new JLabel();
-                label.setLayout(borderLayout);
-                label.setText(found.get(i));
-                label.setSize(400, 10);
-                panel.add(label);
+                BorderLayout borderLayout = new BorderLayout(10, 0);
+                if(found.size() > 0 ){
+                    for( int i = 0; i < found.size(); i++ ){
+                        JLabel label = new JLabel();
+                        label.setLayout(borderLayout);
+                        label.setText(found.get(i));
+                        label.setSize(400, 10);
+                        panel.add(label);
+                    }
+                } else {
+                    JLabel label = new JLabel();
+                    label.setText("No occurrences of " + this.find.getText());
+                }
+                JScrollPane scroller = new JScrollPane(panel);
+                scroller.setAutoscrolls(true);
+                scroller.setAlignmentX(RIGHT_ALIGNMENT);
+
+                frame.add(panel, BorderLayout.PAGE_END);
+                frame.add(scroller, BorderLayout.CENTER);
+                frame.setVisible(true);
+                frame.setResizable(false);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
-            JScrollPane scroller = new JScrollPane(panel);
-            scroller.setAutoscrolls(true);
-            scroller.setAlignmentX(RIGHT_ALIGNMENT);
-
-            frame.add(panel, BorderLayout.PAGE_END);
-            frame.add(scroller, BorderLayout.CENTER);
-            frame.setVisible(true);
-            frame.setResizable(false);
-            frame.pack();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
 }
