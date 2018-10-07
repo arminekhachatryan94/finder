@@ -86,35 +86,73 @@ public class FinderButton extends JButton implements ActionListener {
     }
     
     public boolean isValidFile(){
-        File f = new File(this.path.getText());
-        if( !f.isFile() && f.exists() ){
-            JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
+        if( this.path == null || this.path.getText().length() == 0){
+            JOptionPane.showMessageDialog(null, "Error: Please provide a path.");
             return false;
-        } else if( f.isFile() ) {
-            int index = 0;
-            int i = this.path.getText().indexOf('.');
-            String sub = this.path.getText();
-            while( i != -1 ){
-                index = i;
-                sub = sub.substring(index+1, sub.length());
-                i = sub.indexOf('.');
-            }
-            if( (sub.equals("java") || sub.equals("cfg") || sub.equals("txt") || sub.equals("html") || sub.equals("css")) && this.find.getText().length() > 0 ){
-                return true;
-            } else if( this.find.getText().length() == 0 ){
-                JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
-                return false;
-            } else if( (this.replace.getText() == null || this.replace.getText().length() == 0) && this.belongsTo.equals("replace")){
-                JOptionPane.showMessageDialog(null, "Error: Please provide a word to replace with.");
-                return false;
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
-                return false;
-            }
+        } else if( this.find == null || this.find.getText().length() == 0 ){
+            JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
+            return false;
+        } else if( (this.replace == null || this.replace.getText().length() == 0) && this.belongsTo.equals("replace")){
+            JOptionPane.showMessageDialog(null, "Error: Please provide a word to replace with.");
+            return false;
         } else {
-            JOptionPane.showConfirmDialog(null, "Error: Invalid path.");
-            return false;
+            File f = new File(this.path.getText());
+            if( !f.isFile() && f.exists() ){
+                JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
+                return false;
+            } else if( f.isFile() ){
+                int index = 0;
+                int i = this.path.getText().indexOf('.');
+                String sub = this.path.getText();
+                while( i != -1 ){
+                    index = i;
+                    sub = sub.substring(index+1, sub.length());
+                    i = sub.indexOf('.');
+                }
+                if( (sub.equals("java") || sub.equals("cfg") || sub.equals("txt") || sub.equals("html") || sub.equals("css")) ){
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: Invalid path.");
+                return false;
+            }
         }
+        // if( !f.isFile() && f.exists() ){
+        //     JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
+        //     return false;
+        // } else if( f.isFile() ) {
+        //     int index = 0;
+        //     int i = this.path.getText().indexOf('.');
+        //     String sub = this.path.getText();
+        //     while( i != -1 ){
+        //         index = i;
+        //         sub = sub.substring(index+1, sub.length());
+        //         i = sub.indexOf('.');
+        //     }
+        //     if( (this.replace == null || this.replace.getText().length() == 0) && this.belongsTo.equals("replace")){
+        //         JOptionPane.showMessageDialog(null, "Error: Please provide a word to replace with.");
+        //         return false;
+        //     } else if( this.find == null || this.find.getText().length() == 0 ){
+        //         JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
+        //         return false;
+        //     } else if( (sub.equals("java") || sub.equals("cfg") || sub.equals("txt") || sub.equals("html") || sub.equals("css")) ){
+        //         return true;
+        //     } else {
+        //         JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
+        //         return false;
+        //     }
+        // } else {
+        //     if( this.path == null || this.path.getText().length() == 0 ){
+        //         JOptionPane.showMessageDialog(null, "Error: Please provide a path.");
+        //         return false;
+        //     } else {
+        //         JOptionPane.showMessageDialog(null, "Error: Invalid path.");
+        //         return false;
+        //     }
+        // }
     }
 
     public ArrayList<String> findWord(){
@@ -242,7 +280,7 @@ public class FinderButton extends JButton implements ActionListener {
         } else if(command.equals("Find All") && belongsTo.equals("find")){
             // find word in a file
             ArrayList<String> found = findWord();
-            if( found != null ){
+            if( found != null && found.size() > 0 ){
                 // create a frame and display the words found
                 JFrame frame = new JFrame();
                 frame.setSize(400, 400);
@@ -273,11 +311,15 @@ public class FinderButton extends JButton implements ActionListener {
                 frame.setResizable(false);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            } else if( found == null ){
+                ;
+            } else if( found.size() == 0 && found != null ){
+                JOptionPane.showMessageDialog(null, "No words found");
             }
         } else if(command.equals("Replace All") && belongsTo.equals("replace")){
             // find word in a file
             ArrayList<String> found = findWord();
-            if( found != null && found.size() != 0 ){
+            if( found != null && found.size() > 0 ){
                 // create a frame and display the words found
                 JFrame frame = new JFrame();
                 frame.setSize(400, 400);
@@ -322,6 +364,8 @@ public class FinderButton extends JButton implements ActionListener {
 
                     // close the results frame
                 }
+            } else if( found == null ){
+                ;
             } else if( found.size() == 0 ) {
                 JOptionPane.showMessageDialog(null, "No words found");
             }
