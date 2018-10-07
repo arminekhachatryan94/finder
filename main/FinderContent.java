@@ -73,11 +73,11 @@ public class FinderContent extends JPanel {
         JCheckBox[] match = new JCheckBox[2];
         // row 3
         match[0] = new JCheckBox("Match whole word only");
-        match[0].setBounds(10, 60, 200, 50);
+        match[0].setBounds(10, 70, 200, 15);
         add(match[0]);
         // row 4
         match[1] = new JCheckBox("Match case");
-        match[1].setBounds(10, 95, 200, 20);
+        match[1].setBounds(10, 90, 200, 15);
         add(match[1]);
 
         // file chooser button
@@ -133,11 +133,11 @@ public class FinderContent extends JPanel {
         JCheckBox[] match = new JCheckBox[2];
         // row 4
         match[0] = new JCheckBox("Match whole word only");
-        match[0].setBounds(10, 85, 200, 50);
+        match[0].setBounds(10, 95, 200, 15);
         add(match[0]);
         // row 5
         match[1] = new JCheckBox("Match case");
-        match[1].setBounds(10, 120, 200, 20);
+        match[1].setBounds(10, 115, 200, 15);
         add(match[1]);
         
         // file chooser button
@@ -205,21 +205,12 @@ public class FinderContent extends JPanel {
         JCheckBox[] match = new JCheckBox[2];
         //row 5
         match[0] = new JCheckBox("Match whole word only");
-        match[0].setBounds(10, 110, match[0].getWidth(), match[0].getHeight());
-        // add(match[0]);
-        
-        // // row 6
+        match[0].setBounds(10, 120, 200, 15);
+        add(match[0]);
+        // row 6
         match[1] = new JCheckBox("Match case");
-        match[1].setBounds(10, 145, match[1].getWidth(), match[1].getHeight());
-        // add(match[1]);
-
-        JCheckBox jcb = new JCheckBox("TEST");
-        jcb.setBounds(10, 145, 200, 20);
-        add(jcb);
-
-        JCheckBox jcb2 = new JCheckBox("TEST");
-        jcb2.setBounds(10, 200, 200, 20);
-        add(jcb2);
+        match[1].setBounds(10, 140, 200, 15);
+        add(match[1]);
 
         // file chooser button
         FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText, filters, match);
