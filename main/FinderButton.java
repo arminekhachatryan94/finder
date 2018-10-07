@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -21,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -112,8 +115,10 @@ public class FinderButton extends JButton implements ActionListener {
                 String line;
                 while ((line = br.readLine()) != null) {
                     count++;
-                    System.out.println(line);
-                    found.add(new String("Line " + count + ": " + line));
+                    if(line.contains(this.find.getText())){
+                        System.out.println(line);
+                        found.add(new String("Line " + count + ": " + line));
+                    }
                 }
             } catch( Exception e ){
                 System.out.println(e.toString());
@@ -135,14 +140,26 @@ public class FinderButton extends JButton implements ActionListener {
             JFrame frame = new JFrame();
             frame.setSize(400, 400);
             JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(400, 400));
+            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+            BorderLayout borderLayout = new BorderLayout(10, 0);
             for( int i = 0; i < found.size(); i++ ){
                 JLabel label = new JLabel();
+                label.setLayout(borderLayout);
                 label.setText(found.get(i));
                 label.setSize(400, 10);
                 panel.add(label);
             }
-            frame.add(panel);
+            JScrollPane scroller = new JScrollPane(panel);
+            scroller.setAutoscrolls(true);
+            scroller.setAlignmentX(RIGHT_ALIGNMENT);
+
+            frame.add(panel, BorderLayout.PAGE_END);
+            frame.add(scroller, BorderLayout.CENTER);
             frame.setVisible(true);
+            frame.setResizable(false);
+            frame.pack();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
