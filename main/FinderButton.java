@@ -6,14 +6,17 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 
 import javax.swing.BoxLayout;
@@ -155,7 +158,7 @@ public class FinderButton extends JButton implements ActionListener {
         }
     }
 
-    public void replace(ArrayList<String> lines) {
+    public void replaceInArray(ArrayList<String> lines) {
         for( int i = 0; i < lines.size(); i++ ){
             String line = lines.get(i);
             String sub = line.substring(0, line.indexOf(':') + 1);
@@ -176,6 +179,55 @@ public class FinderButton extends JButton implements ActionListener {
                 lines.set(i, sub + line);
             }
             System.out.println(sub + line);
+        }
+    }
+
+    public void replaceInFile(ArrayList<String> lines) {
+        try {
+            // read file into oldText ArrayList
+            BufferedReader file = new BufferedReader(new FileReader(this.path.getText()));
+            ArrayList<String> oldText = new ArrayList<String>();
+            String line;
+            while ((line = file.readLine()) != null) {
+                oldText.add(line);
+            }
+            file.close();
+
+
+            String outputString = "";
+            String newText = lines.get(0);
+            String newLine = newText.substring(newText.indexOf(':')+2);
+            int line_num = Integer.parseInt(newText.substring(5, newText.indexOf(':')));
+            int count = 0;
+            for( int i = 0; i < oldText.size(); i++ ){
+                if( i+1 == line_num ){
+                    if( i != 0 ){
+                        outputString += '\n';
+                    }
+                    outputString += newLine;
+                    count++;
+                    if( count < lines.size()){
+                        newText = lines.get(count);
+                        newLine = newText.substring(newText.indexOf(':')+2);
+                        line_num = Integer.parseInt(newText.substring(5, newText.indexOf(':')));
+                    }
+                } else {
+                    if( i != 0 ){
+                        outputString += '\n';
+                    }
+                    outputString += oldText.get(i);
+                }
+            }
+
+            System.out.print(outputString);
+            
+            // write the new String with the replaced line OVER the same file
+            FileOutputStream fileOut = new FileOutputStream(this.path.getText());
+            fileOut.write(outputString.getBytes());
+            fileOut.close();
+            JOptionPane.showMessageDialog(null, "Successfully replaced everything");
+        } catch (Exception e) {
+            System.out.println("Problem replacing the words in the file.");
         }
     }
 
@@ -225,7 +277,7 @@ public class FinderButton extends JButton implements ActionListener {
         } else if(command.equals("Replace All") && belongsTo.equals("replace")){
             // find word in a file
             ArrayList<String> found = findWord();
-            if( found != null ){
+            if( found != null && found.size() != 0 ){
                 // create a frame and display the words found
                 JFrame frame = new JFrame();
                 frame.setSize(400, 400);
@@ -260,9 +312,18 @@ public class FinderButton extends JButton implements ActionListener {
                 int dialogButton = JOptionPane.YES_NO_OPTION;
                 int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to replace?","Warning",dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
-                    replace(found);
                     frame.dispose();
+
+                    // replace occurrences in temporary array
+                    replaceInArray(found);
+
+                    // save to the file
+                    replaceInFile(found);
+
+                    // close the results frame
                 }
+            } else if( found.size() == 0 ) {
+                JOptionPane.showMessageDialog(null, "No words found");
             }
         }
     }
