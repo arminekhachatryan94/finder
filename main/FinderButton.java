@@ -43,10 +43,10 @@ public class FinderButton extends JButton implements ActionListener {
     public JFileChooser fileChooser;
 
     FinderButton(String btnText, String belongsTo, JTextField find, JTextField path, JTextField replace, JTextField filters, JCheckBox[] match){
-        if( btnText == "..."){
+        if( btnText.equals("...")){
             this.fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
-            if( belongsTo == "find all" ){
+            if( belongsTo.equals("find all") ){
                 this.fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             } else {
                 this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -96,10 +96,13 @@ public class FinderButton extends JButton implements ActionListener {
                 sub = sub.substring(index+1, sub.length());
                 i = sub.indexOf('.');
             }
-            if( (sub.equals("java") || sub == "cfg" || sub.equals("txt") || sub == "html" || sub == "css") && this.find.getText().length() > 0 ){
+            if( (sub.equals("java") || sub.equals("cfg") || sub.equals("txt") || sub.equals("html") || sub.equals("css")) && this.find.getText().length() > 0 ){
                 return true;
             } else if( this.find.getText().length() == 0 ){
                 JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
+                return false;
+            } else if( (this.replace.getText() == null || this.replace.getText().length() == 0) && this.belongsTo.equals("replace")){
+                JOptionPane.showMessageDialog(null, "Error: Please provide a word to replace with.");
                 return false;
             } else {
                 JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
@@ -152,15 +155,39 @@ public class FinderButton extends JButton implements ActionListener {
         }
     }
 
+    public void replace(ArrayList<String> lines) {
+        for( int i = 0; i < lines.size(); i++ ){
+            String line = lines.get(i);
+            String sub = line.substring(0, line.indexOf(':') + 1);
+            line = line.substring(line.indexOf(':') + 1);
+            if( match[0].isSelected() && match[1].isSelected() ){
+                String regex = ".*\\b" + this.find.getText() + "\\b.*";
+                line = line.replaceAll(regex, this.replace.getText());
+                lines.set(i, sub + line);
+            } else if( match[0].isSelected() ){
+                String regex = ".*\\b" + this.find.getText().toLowerCase() + "\\b.*";
+                line = line.replaceAll(regex, this.replace.getText());
+                lines.set(i, sub + line);
+            } else if( match[1].isSelected() ){
+                line = line.replaceAll(this.find.getText(), this.replace.getText());
+                lines.set(i, sub + line);
+            } else {
+                line = line.replaceAll(this.find.getText().toLowerCase(), this.replace.getText());
+                lines.set(i, sub + line);
+            }
+            System.out.println(sub + line);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
-        if(command == "..."){
+        if(command.equals("...")){
             returnValue = fileChooser.showOpenDialog(null);
             if( returnValue == JFileChooser.APPROVE_OPTION){
                 path.setText(fileChooser.getSelectedFile().getPath());
             }
-        } else if(command == "Find"){
+        } else if(command.equals("Find All") && belongsTo.equals("find")){
             // find word in a file
             ArrayList<String> found = findWord();
             if( found != null ){
@@ -194,6 +221,48 @@ public class FinderButton extends JButton implements ActionListener {
                 frame.setResizable(false);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        } else if(command.equals("Replace All") && belongsTo.equals("replace")){
+            // find word in a file
+            ArrayList<String> found = findWord();
+            if( found != null ){
+                // create a frame and display the words found
+                JFrame frame = new JFrame();
+                frame.setSize(400, 400);
+                JPanel panel = new JPanel();
+                panel.setPreferredSize(new Dimension(400, 400));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+                BorderLayout borderLayout = new BorderLayout(10, 0);
+                if(found.size() > 0 ){
+                    for( int i = 0; i < found.size(); i++ ){
+                        JLabel label = new JLabel();
+                        label.setLayout(borderLayout);
+                        label.setText(found.get(i));
+                        label.setSize(400, 10);
+                        panel.add(label);
+                    }
+                } else {
+                    JLabel label = new JLabel();
+                    label.setText("No occurrences of " + this.find.getText());
+                }
+                JScrollPane scroller = new JScrollPane(panel);
+                scroller.setAutoscrolls(true);
+                scroller.setAlignmentX(RIGHT_ALIGNMENT);
+
+                frame.add(panel, BorderLayout.PAGE_END);
+                frame.add(scroller, BorderLayout.CENTER);
+                frame.setVisible(true);
+                frame.setResizable(false);
+                frame.pack();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to replace?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    replace(found);
+                    frame.dispose();
+                }
             }
         }
     }

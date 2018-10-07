@@ -86,7 +86,7 @@ public class FinderContent extends JPanel {
         add(chooser);
 
         // buttons
-        FinderButton findBtn = new FinderButton("Find", "find", findText, path, null, null, match);
+        FinderButton findBtn = new FinderButton("Find All", "find", findText, path, null, null, match);
 
         findBtn.setBounds(310, 7, 180, 30);
 
