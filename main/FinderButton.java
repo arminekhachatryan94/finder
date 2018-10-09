@@ -270,6 +270,29 @@ public class FinderButton extends JButton implements ActionListener {
         }
     }
 
+    public boolean validFilters(){
+        boolean ret = true;
+        String fils = this.filters.getText();
+
+        int count = 0;
+        for( int i = 0; i < fils.length(); i++ ){
+            if( fils.charAt(i) == ' ' ){
+                count++;
+            }
+        }
+        if( count != fils.length() ){
+            String[] fs = fils.split("\\s+");
+            for( int i = 0; i < fs.length; i++ ){
+                if( !fs[i].equals("*.*") && !fs[i].equals(".java") && !fs[i].equals(".cfg") && !fs[i].equals(".txt") && !fs[i].equals(".html") && !fs[i].equals(".css")){
+                    ret = false;
+                    break;
+                }
+            }
+            System.out.println(fs.length);
+        }
+        return ret;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
@@ -370,13 +393,35 @@ public class FinderButton extends JButton implements ActionListener {
             } else if( found.size() == 0 ) {
                 JOptionPane.showMessageDialog(null, "No words found");
             }
-        } else if( command.equals("Find All") && this.belongsTo.equals("files")){
-            FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
-            try {
-                int r = worker.doInBackground();
-                System.out.println(r);
-            } catch( Exception ex ){
-                System.out.println(ex.toString());
+        } else if( command.equals("Find All") && this.belongsTo.equals("files") ){
+            if( this.path == null || this.path.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Please specify a directory");
+            } else if( this.find == null || this.find.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Please specify a word to search for");
+            } else if( !validFilters() ){
+                JOptionPane.showMessageDialog(null, "Please specify valid filters");
+            }
+            else {
+                FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
+                try {
+                    int r = worker.doInBackground();
+                    System.out.println(r);
+                } catch( Exception ex ){
+                    System.out.println(ex.toString());
+                }
+            }
+        } else if( command.equals("Replace All") && this.belongsTo.equals("files")){
+            if( this.path == null || this.path.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Please specify a directory");
+            } else if( this.find == null || this.find.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Please specify a word to search for");
+            } else if( this.replace == null || this.replace.getText().length() == 0 ){
+                JOptionPane.showMessageDialog(null, "Please specify a word to replace with");
+            } else if( !validFilters() ){
+                JOptionPane.showMessageDialog(null, "Please specify valid filters");
+            }
+            else {
+                ;
             }
         }
     }
