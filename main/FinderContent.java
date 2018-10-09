@@ -213,13 +213,13 @@ public class FinderContent extends JPanel {
         add(match[1]);
 
         // file chooser button
-        FinderButton chooser = new FinderButton("...", "find all", findText, path, replaceText, filters, match);
+        FinderButton chooser = new FinderButton("...", "files", findText, path, replaceText, filters, match);
         chooser.setBounds(250, 82, 50, 30);
         add(chooser);
 
         // buttons
-        FinderButton findAllBtn = new FinderButton("Find All", "find all", findText, path, replaceText, filters, match);
-        FinderButton replaceAllBtn = new FinderButton("Replace All", "find all", findText, path, replaceText, filters, match);
+        FinderButton findAllBtn = new FinderButton("Find All", "files", findText, path, replaceText, filters, match);
+        FinderButton replaceAllBtn = new FinderButton("Replace All", "files", findText, path, replaceText, filters, match);
 
         findAllBtn.setBounds(310, 7, 180, 30);
         replaceAllBtn.setBounds(310, 40, 180, 30);

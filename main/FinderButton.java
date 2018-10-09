@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -49,7 +50,7 @@ public class FinderButton extends JButton implements ActionListener {
         if( btnText.equals("...")){
             this.fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
-            if( belongsTo.equals("find all") ){
+            if( belongsTo.equals("files") ){
                 this.fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             } else {
                 this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -368,6 +369,14 @@ public class FinderButton extends JButton implements ActionListener {
                 ;
             } else if( found.size() == 0 ) {
                 JOptionPane.showMessageDialog(null, "No words found");
+            }
+        } else if( command.equals("Find All") && this.belongsTo.equals("files")){
+            FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
+            try {
+                int r = worker.doInBackground();
+                System.out.println(r);
+            } catch( Exception ex ){
+                System.out.println(ex.toString());
             }
         }
     }
