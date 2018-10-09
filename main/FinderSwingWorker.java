@@ -1,7 +1,8 @@
 import java.awt.Dimension;
-import java.awt.List;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -34,7 +35,46 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
     @Override
     protected Integer doInBackground() throws Exception {
         int count = countFiles(this.path.getText());
+
+        setProgress(0);
+
+        File f = new File(this.path.getText());
+        subDirectories(f);
         return count;
+    }
+
+
+    @Override
+    protected void process(List<String> files) {
+        for(String f : files) {
+            System.out.println(f);
+        }
+    }
+
+    /*
+    @Override
+    protected void done() {
+        boolean bStatus = false;
+        try {
+            bStatus = get();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Finished with status " + bStatus);
+    }
+    */
+
+    void subDirectories(File d){
+        File[] filesList = d.listFiles();
+        List<String> l = new ArrayList<String>();
+        for( int i = 0; i < filesList.length; i++ ){
+            if( filesList[i].isDirectory()){
+                subDirectories(filesList[i]);
+            } else if( filesList[i].isFile()){
+                l.add(filesList[i].getAbsolutePath());
+            }
+        }
+        process(l);
     }
 
     private int countFiles(String path){
@@ -55,25 +95,4 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
             return 0;
         }
     }
-    
-    /*
-    @Override
-    protected void process(List<String> files) {
-        // Get Info
-        for (int number : chunks) {
-            System.out.println("Found even number: " + number);
-        }
-    }
-
-    @Override
-    protected void done() {
-        boolean bStatus = false;
-        try {
-            bStatus = get();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("Finished with status " + bStatus);
-    }
-    */
 }
