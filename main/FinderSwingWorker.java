@@ -19,7 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
+import org.apache.log4j.Logger;
+
 class FinderSwingWorker extends SwingWorker<Integer, String> {
+    final static Logger logger = Logger.getLogger(FinderSwingWorker.class);
+
     public JTextField find;
     public JTextField replace;
     public JTextField path;
@@ -61,7 +65,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
     protected void process(List<String> files) {
         for(String s : files) {
             File f = new File(s);
-            System.out.println(s);
+            logger.info(s);
             ArrayList<String> founds = findWord(f.getAbsolutePath());
 
             BorderLayout borderLayout = new BorderLayout(10, 0);
@@ -134,20 +138,20 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
                     }
                 } else if( this.match[1].isSelected() ){
                     if(line.contains(this.find.getText())){
-                        System.out.println(line);
+                        logger.info(line);
                         found.add(new String("Line " + count + ": " + line));
                     }
                 } else {
                     String _word = this.find.getText().toLowerCase();
                     String _line = line.toLowerCase();
                     if(_line.contains(_word)){
-                        System.out.println(line);
+                        logger.info(line);
                         found.add(new String("Line " + count + ": " + line));
                     }
                 }
             }
         } catch( Exception e ){
-            System.out.println(e.toString());
+            logger.info(e.toString());
         }
         return found;
     }
@@ -173,7 +177,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
                 line = line.replaceAll(this.find.getText().toLowerCase(), this.replace.getText());
                 lines.set(i, sub + line);
             }
-            System.out.println(sub + line);
+            logger.info(sub + line);
         }
     }
 
@@ -214,14 +218,14 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
                 }
             }
 
-            System.out.print(outputString);
+            logger.info(outputString);
             
             // write the new String with the replaced line OVER the same file
             FileOutputStream fileOut = new FileOutputStream(location);
             fileOut.write(outputString.getBytes());
             fileOut.close();
         } catch (Exception e) {
-            System.out.println("Problem replacing the words in the file.");
+            logger.info("Problem replacing the words in the file.");
         }
     }
 
@@ -242,7 +246,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
                     sub = sub.substring(index+1, sub.length());
                     j = sub.indexOf('.');
                 }
-                System.out.println(sub);
+                logger.info(sub);
                 if( filts.contains('.' + sub) || filts.contains("*.*") || this.filters.getText().length() == 0 ){
                     l.add(filesList[i].getAbsolutePath());
                 }
@@ -280,7 +284,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
             File[] filesList = d.listFiles();
             int count = 0;
             for( int i = 0; i < filesList.length; i++ ){
-                // System.out.println(i);
+                // logger.info(i);
                 if( filesList[i].isDirectory()){
                     count += countFiles(filesList[i].getAbsolutePath());
                 } else if( filesList[i].isFile()){

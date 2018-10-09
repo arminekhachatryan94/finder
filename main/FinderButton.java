@@ -34,7 +34,11 @@ import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import org.apache.log4j.Logger;
+
 public class FinderButton extends JButton implements ActionListener {
+    final static Logger logger = Logger.getLogger(FinderButton.class);
+
     public String btnText = null;
     public String belongsTo = null; // panel button belongs to
     public JTextField find = null;
@@ -143,20 +147,20 @@ public class FinderButton extends JButton implements ActionListener {
                         }
                     } else if( this.match[1].isSelected() ){
                         if(line.contains(this.find.getText())){
-                            System.out.println(line);
+                            logger.info(line);
                             found.add(new String("Line " + count + ": " + line));
                         }
                     } else {
                         String _word = this.find.getText().toLowerCase();
                         String _line = line.toLowerCase();
                         if(_line.contains(_word)){
-                            System.out.println(line);
+                            logger.info(line);
                             found.add(new String("Line " + count + ": " + line));
                         }
                     }
                 }
             } catch( Exception e ){
-                System.out.println(e.toString());
+                logger.info(e.toString());
             }
             return found;
         } else {
@@ -184,7 +188,7 @@ public class FinderButton extends JButton implements ActionListener {
                 line = line.replaceAll(this.find.getText().toLowerCase(), this.replace.getText());
                 lines.set(i, sub + line);
             }
-            System.out.println(sub + line);
+            logger.info(sub + line);
         }
     }
 
@@ -225,7 +229,7 @@ public class FinderButton extends JButton implements ActionListener {
                 }
             }
 
-            System.out.print(outputString);
+            logger.info(outputString);
             
             // write the new String with the replaced line OVER the same file
             FileOutputStream fileOut = new FileOutputStream(this.path.getText());
@@ -233,7 +237,7 @@ public class FinderButton extends JButton implements ActionListener {
             fileOut.close();
             JOptionPane.showMessageDialog(null, "Successfully replaced everything");
         } catch (Exception e) {
-            System.out.println("Problem replacing the words in the file.");
+            logger.info("Problem replacing the words in the file.");
         }
     }
 
@@ -255,7 +259,7 @@ public class FinderButton extends JButton implements ActionListener {
                     break;
                 }
             }
-            System.out.println(fs.length);
+            logger.info(fs.length);
         }
         return ret;
     }
@@ -372,9 +376,9 @@ public class FinderButton extends JButton implements ActionListener {
                 FinderSwingWorker worker = new FinderSwingWorker(this.find, null, this.path, this.filters, this.match);
                 try {
                     int r = worker.doInBackground();
-                    System.out.println(r);
+                    logger.info(r);
                 } catch( Exception ex ){
-                    System.out.println(ex.toString());
+                    logger.info(ex.toString());
                 }
             }
         } else if( command.equals("Replace All") && this.belongsTo.equals("files")){
@@ -391,9 +395,9 @@ public class FinderButton extends JButton implements ActionListener {
                 FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
                 try {
                     int r = worker.doInBackground();
-                    System.out.println(r);
+                    logger.info(r);
                 } catch( Exception ex ){
-                    System.out.println(ex.toString());
+                    logger.info(ex.toString());
                 }
             }
         }

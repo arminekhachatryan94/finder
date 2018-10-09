@@ -1,3 +1,3 @@
-javac main/*.java -d out
+javac -cp .:./lib/* main/*.java -d out
 cd out
-java Finder
+java -cp .:../lib/* -Dlog4j.configurationFile=../log4j.xml Finder
