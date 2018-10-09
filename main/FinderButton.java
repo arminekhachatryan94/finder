@@ -121,39 +121,6 @@ public class FinderButton extends JButton implements ActionListener {
                 return false;
             }
         }
-        // if( !f.isFile() && f.exists() ){
-        //     JOptionPane.showMessageDialog(null, "Error: Path selected is not a valid file.");
-        //     return false;
-        // } else if( f.isFile() ) {
-        //     int index = 0;
-        //     int i = this.path.getText().indexOf('.');
-        //     String sub = this.path.getText();
-        //     while( i != -1 ){
-        //         index = i;
-        //         sub = sub.substring(index+1, sub.length());
-        //         i = sub.indexOf('.');
-        //     }
-        //     if( (this.replace == null || this.replace.getText().length() == 0) && this.belongsTo.equals("replace")){
-        //         JOptionPane.showMessageDialog(null, "Error: Please provide a word to replace with.");
-        //         return false;
-        //     } else if( this.find == null || this.find.getText().length() == 0 ){
-        //         JOptionPane.showMessageDialog(null, "Error: Please provide a word to find.");
-        //         return false;
-        //     } else if( (sub.equals("java") || sub.equals("cfg") || sub.equals("txt") || sub.equals("html") || sub.equals("css")) ){
-        //         return true;
-        //     } else {
-        //         JOptionPane.showMessageDialog(null, "Error: This application does not support those files.");
-        //         return false;
-        //     }
-        // } else {
-        //     if( this.path == null || this.path.getText().length() == 0 ){
-        //         JOptionPane.showMessageDialog(null, "Error: Please provide a path.");
-        //         return false;
-        //     } else {
-        //         JOptionPane.showMessageDialog(null, "Error: Invalid path.");
-        //         return false;
-        //     }
-        // }
     }
 
     public ArrayList<String> findWord(){
