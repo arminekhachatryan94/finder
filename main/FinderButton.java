@@ -369,7 +369,7 @@ public class FinderButton extends JButton implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please specify valid filters");
             }
             else {
-                FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
+                FinderSwingWorker worker = new FinderSwingWorker(this.find, null, this.path, this.filters, this.match);
                 try {
                     int r = worker.doInBackground();
                     System.out.println(r);
@@ -388,7 +388,13 @@ public class FinderButton extends JButton implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please specify valid filters");
             }
             else {
-                ;
+                FinderSwingWorker worker = new FinderSwingWorker(this.find, this.replace, this.path, this.filters, this.match);
+                try {
+                    int r = worker.doInBackground();
+                    System.out.println(r);
+                } catch( Exception ex ){
+                    System.out.println(ex.toString());
+                }
             }
         }
     }
