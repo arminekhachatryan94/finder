@@ -40,41 +40,73 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
 
         File f = new File(this.path.getText());
         subDirectories(f);
+        done();
         return count;
     }
 
 
     @Override
     protected void process(List<String> files) {
-        for(String f : files) {
-            System.out.println(f);
+        for(String s : files) {
+            File f = new File(s);
+            System.out.println(s);
         }
     }
 
-    /*
     @Override
     protected void done() {
-        boolean bStatus = false;
-        try {
-            bStatus = get();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("Finished with status " + bStatus);
+        this.frame.setVisible(true);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-    */
 
     void subDirectories(File d){
         File[] filesList = d.listFiles();
         List<String> l = new ArrayList<String>();
+        ArrayList<String> filts = getFilters();
         for( int i = 0; i < filesList.length; i++ ){
             if( filesList[i].isDirectory()){
                 subDirectories(filesList[i]);
             } else if( filesList[i].isFile()){
-                l.add(filesList[i].getAbsolutePath());
+                int index = 0;
+                int j = filesList[i].getAbsolutePath().indexOf('.');
+                String sub = filesList[i].getAbsolutePath();
+                while( j != -1 ){
+                    index = i;
+                    sub = sub.substring(index+1, sub.length());
+                    j = sub.indexOf('.');
+                }
+                System.out.println(sub);
+                if( filts.contains('.' + sub) || filts.contains("*.*") || this.filters.getText().length() == 0 ){
+                    l.add(filesList[i].getAbsolutePath());
+                }
             }
         }
         process(l);
+    }
+
+    private ArrayList<String> getFilters(){
+        ArrayList<String> ret = new ArrayList<String>();
+        if( this.filters.getText().length() == 0 ){
+            ;
+        } else {
+            int c = 0;
+            for( int j = 0; j < this.filters.getText().length(); j++ ){
+                if( this.filters.getText().charAt(j) == ' '){
+                    c++;
+                }
+            }
+            if( c == this.filters.getText().length()){
+                ;
+            } else {
+                String[] sp = this.filters.getText().split("\\s+");
+                for( int j = 0; j < sp.length; j++ ){
+                    ret.add(sp[j]);
+                }
+            }
+        }
+        return ret;
     }
 
     private int countFiles(String path){
