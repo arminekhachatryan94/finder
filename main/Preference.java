@@ -59,7 +59,7 @@ class Preference {
         prefs.putBoolean("wholeWord", val);
     }
 
-    public void setCaseSensitive(Boolan val){
+    public void setCaseSensitive(Boolean val){
         prefs.putBoolean("caseSensitive", val);
     }
 
