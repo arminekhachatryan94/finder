@@ -32,6 +32,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
     public JFrame frame;
     public JPanel panel;
     public boolean confirm_replace = false;
+    public int count_lines = 0;
 
     public FinderSwingWorker(JTextField find, JTextField replace, JTextField path, JTextField filters, JCheckBox[] match){
         this.find = find;
@@ -104,6 +105,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
 
     @Override
     protected void done() {
+        if(count_lines > 0){
         JScrollPane scroller = new JScrollPane(this.panel);
         scroller.setAutoscrolls(true);
 
@@ -116,6 +118,9 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
         if( this.confirm_replace ){
             this.confirm_replace = false;
             JOptionPane.showMessageDialog(null, "Successfully replaced everything");
+        }
+        } else {
+            JOptionPane.showMessageDialog(null, "No results found");
         }
     }
 
@@ -166,16 +171,20 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
                 String regex = ".*\\b" + this.find.getText() + "\\b.*";
                 line = line.replaceAll(regex, this.replace.getText());
                 lines.set(i, sub + line);
+                count_lines++;
             } else if( match[0].isSelected() ){
                 String regex = ".*\\b" + this.find.getText().toLowerCase() + "\\b.*";
                 line = line.replaceAll(regex, this.replace.getText());
                 lines.set(i, sub + line);
+                count_lines++;
             } else if( match[1].isSelected() ){
                 line = line.replaceAll(this.find.getText(), this.replace.getText());
                 lines.set(i, sub + line);
+                count_lines++;
             } else {
                 line = line.replaceAll(this.find.getText().toLowerCase(), this.replace.getText());
                 lines.set(i, sub + line);
+                count_lines++;
             }
             logger.info(sub + line);
         }
