@@ -197,19 +197,30 @@ public class FinderButton extends JButton implements ActionListener {
     public void replaceInFile(ArrayList<String> lines) {
         try {
             // read file into oldText ArrayList
+            System.out.println("hi");
+
             BufferedReader file = new BufferedReader(new FileReader(this.path.getText()));
             ArrayList<String> oldText = new ArrayList<String>();
+            System.out.println("hello");
             String line;
+            System.out.println("hey");
             while ((line = file.readLine()) != null) {
+                System.out.println("read: " + line);
                 oldText.add(line);
             }
             file.close();
-
+            System.out.println("close");
 
             String outputString = "";
+            System.out.println("btn0");
             String newText = lines.get(0);
             String newLine = newText.substring(newText.indexOf(':')+2);
-            int line_num = Integer.parseInt(newText.substring(5, newText.indexOf(':')));
+            System.out.println("good?");
+            System.out.println(newText);
+            System.out.println(newText.indexOf(':'));
+            System.out.println(newText.substring(4, newText.indexOf(':')));
+            int line_num = Integer.parseInt(newText.substring(4, newText.indexOf(':')));
+            System.out.println("now?");
             int count = 0;
             for( int i = 0; i < oldText.size(); i++ ){
                 if( i+1 == line_num ){

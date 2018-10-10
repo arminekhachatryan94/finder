@@ -183,7 +183,6 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
 
     public void replaceInFile(ArrayList<String> lines, String location) {
         try {
-            // read file into oldText ArrayList
             BufferedReader file = new BufferedReader(new FileReader(location));
             ArrayList<String> oldText = new ArrayList<String>();
             String line;
@@ -192,11 +191,10 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
             }
             file.close();
 
-
             String outputString = "";
             String newText = lines.get(0);
             String newLine = newText.substring(newText.indexOf(':')+2);
-            int line_num = Integer.parseInt(newText.substring(5, newText.indexOf(':')));
+            int line_num = Integer.parseInt(newText.substring(4, newText.indexOf(':')));
             int count = 0;
             for( int i = 0; i < oldText.size(); i++ ){
                 if( i+1 == line_num ){
@@ -228,7 +226,6 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
             logger.info("Problem replacing the words in the file.");
         }
     }
-
 
     void subDirectories(File d){
         File[] filesList = d.listFiles();
