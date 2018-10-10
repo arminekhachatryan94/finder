@@ -2,6 +2,7 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
@@ -16,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 
 public class FinderContent extends JPanel {
@@ -79,11 +79,13 @@ public class FinderContent extends JPanel {
         match[0] = new JCheckBox("Match whole word only");
         match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 70, 200, 15);
+        match[0].addActionListener(new CheckboxSave("word"));
         add(match[0]);
         // row 4
         match[1] = new JCheckBox("Match case");
         match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 90, 200, 15);
+        match[1].addActionListener(new CheckboxSave("case"));
         add(match[1]);
 
         // file chooser button
@@ -144,11 +146,13 @@ public class FinderContent extends JPanel {
         match[0] = new JCheckBox("Match whole word only");
         match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 95, 200, 15);
+        match[0].addActionListener(new CheckboxSave("word"));
         add(match[0]);
         // row 5
         match[1] = new JCheckBox("Match case");
         match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 115, 200, 15);
+        match[1].addActionListener(new CheckboxSave("case"));
         add(match[1]);
         
         // file chooser button
@@ -222,11 +226,13 @@ public class FinderContent extends JPanel {
         match[0] = new JCheckBox("Match whole word only");
         match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 120, 200, 15);
+        match[0].addActionListener(new CheckboxSave("word"));
         add(match[0]);
         // row 6
         match[1] = new JCheckBox("Match case");
         match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 140, 200, 15);
+        match[1].addActionListener(new CheckboxSave("case"));
         add(match[1]);
 
         // file chooser button
@@ -275,5 +281,24 @@ public class FinderContent extends JPanel {
 
         @Override public void keyReleased( KeyEvent evt ) {;}
     }
+
+    private class CheckboxSave implements ActionListener {
+        String text = "";
+
+        private CheckboxSave(String text){
+            this.text = text;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("clicked");
+            JCheckBox check = (JCheckBox) e.getSource();
+            if( this.text == "case" ){
+                prefs.setCaseSensitive(check.isSelected());
+            } else if( this.text == "word" ){
+                prefs.setWholeWord(check.isSelected());
+            }
+        }
+    }
+
 
 }

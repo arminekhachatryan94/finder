@@ -55,12 +55,12 @@ class Preference {
         prefs.put("filters", filters);
     }
 
-    public void setWholeWord(){
-        prefs.putBoolean("wholeWord", false);
+    public void setWholeWord(Boolean val){
+        prefs.putBoolean("wholeWord", val);
     }
 
-    public void setCaseSensitive(){
-        prefs.putBoolean("caseSensitive", false);
+    public void setCaseSensitive(Boolan val){
+        prefs.putBoolean("caseSensitive", val);
     }
 
 }
