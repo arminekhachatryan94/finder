@@ -37,6 +37,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.apache.log4j.Logger;
 
 public class FinderButton extends JButton implements ActionListener {
+    public Preference prefs;
     final static Logger logger = Logger.getLogger(FinderButton.class);
 
     public String btnText = null;
@@ -51,6 +52,7 @@ public class FinderButton extends JButton implements ActionListener {
     public JFileChooser fileChooser;
 
     FinderButton(String btnText, String belongsTo, JTextField find, JTextField path, JTextField replace, JTextField filters, JCheckBox[] match){
+        this.prefs = new Preference();
         if( btnText.equals("...")){
             this.fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("All Files", "java", "txt", "html", "css", "cfg");
@@ -271,6 +273,12 @@ public class FinderButton extends JButton implements ActionListener {
             returnValue = fileChooser.showOpenDialog(null);
             if( returnValue == JFileChooser.APPROVE_OPTION){
                 path.setText(fileChooser.getSelectedFile().getPath());
+                if( this.belongsTo.equals("find") || this.belongsTo.equals("replace") ){
+                    this.prefs.setFindPath(fileChooser.getSelectedFile().getPath());
+                } else {
+                    this.prefs.setFilePath(fileChooser.getSelectedFile().getPath());
+                }
+
             }
         } else if(command.equals("Find All") && belongsTo.equals("find")){
             // find word in a file

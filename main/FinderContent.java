@@ -23,11 +23,13 @@ public class FinderContent extends JPanel {
     public String type;
     public int WIDTH;
     public int HEIGHT;
+    public Preference prefs;
 
     FinderContent(String type, int width, int height){
         this.type = type;
         this.WIDTH = width;
         this.HEIGHT = height;
+        prefs = new Preference();
         setUp();
     }
 
@@ -52,10 +54,11 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextField findText = new JTextField("");
+        JTextField findText = new JTextField(prefs.getFind());
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
+        findText.addKeyListener(new PreferencesAdder("find"));
         add(findText);
 
         // row 2
@@ -64,19 +67,22 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 35, 70, 20);
         add(findWhere);
 
-        JTextField path = new JTextField("");
+        JTextField path = new JTextField(prefs.getFindPath());
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 35, 150, 20);
+        path.addKeyListener(new PreferencesAdder("find path"));
         add(path);
 
         JCheckBox[] match = new JCheckBox[2];
         // row 3
         match[0] = new JCheckBox("Match whole word only");
+        match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 70, 200, 15);
         add(match[0]);
         // row 4
         match[1] = new JCheckBox("Match case");
+        match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 90, 200, 15);
         add(match[1]);
 
@@ -100,10 +106,11 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextField findText = new JTextField("");
+        JTextField findText = new JTextField(prefs.getFind());
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
+        findText.addKeyListener(new PreferencesAdder("find"));
         add(findText);
         
         // row 2
@@ -112,10 +119,11 @@ public class FinderContent extends JPanel {
         replaceWhat.setBounds(10, 35, 70, 20);
         add(replaceWhat);
 
-        JTextField replaceText = new JTextField("");
+        JTextField replaceText = new JTextField(prefs.getReplace());
         replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
         replaceText.setBackground(Color.white);
         replaceText.setBounds(90, 35, 150, 20);
+        replaceText.addKeyListener(new PreferencesAdder("replace"));
         add(replaceText);
 
         // row 3
@@ -124,19 +132,22 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 60, 70, 20);
         add(findWhere);
 
-        JTextField path = new JTextField("");
+        JTextField path = new JTextField(prefs.getFindPath());
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 60, 150, 20);
+        path.addKeyListener(new PreferencesAdder("find path"));
         add(path);
 
         JCheckBox[] match = new JCheckBox[2];
         // row 4
         match[0] = new JCheckBox("Match whole word only");
+        match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 95, 200, 15);
         add(match[0]);
         // row 5
         match[1] = new JCheckBox("Match case");
+        match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 115, 200, 15);
         add(match[1]);
         
@@ -160,10 +171,11 @@ public class FinderContent extends JPanel {
         findWhat.setBounds(10, 10, 70, 20);
         add(findWhat);
 
-        JTextField findText = new JTextField("");
+        JTextField findText = new JTextField(prefs.getFind());
         findText.setBorder(BorderFactory.createLineBorder(Color.black));
         findText.setBackground(Color.white);
         findText.setBounds(90, 10, 150, 20);
+        findText.addKeyListener(new PreferencesAdder("find"));
         add(findText);
 
         // row 2
@@ -172,10 +184,11 @@ public class FinderContent extends JPanel {
         replaceWhat.setBounds(10, 35, 70, 20);
         add(replaceWhat);
 
-        JTextField replaceText = new JTextField("");
+        JTextField replaceText = new JTextField(prefs.getReplace());
         replaceText.setBorder(BorderFactory.createLineBorder(Color.black));
         replaceText.setBackground(Color.white);
         replaceText.setBounds(90, 35, 150, 20);
+        replaceText.addKeyListener(new PreferencesAdder("replace"));
         add(replaceText);
 
         // row 3
@@ -184,10 +197,11 @@ public class FinderContent extends JPanel {
         filtersLabel.setBounds(10, 60, 70, 20);
         add(filtersLabel);
 
-        JTextField filters = new JTextField("");
+        JTextField filters = new JTextField(prefs.getFilters());
         filters.setBorder(BorderFactory.createLineBorder(Color.black));
         filters.setBackground(Color.white);
         filters.setBounds(90, 60, 150, 20);
+        filters.addKeyListener(new PreferencesAdder("filters"));
         add(filters);
 
         // row 4
@@ -196,19 +210,22 @@ public class FinderContent extends JPanel {
         findWhere.setBounds(10, 85, 70, 20);
         add(findWhere);
 
-        JTextField path = new JTextField("");
+        JTextField path = new JTextField(prefs.getFilePath());
         path.setBorder(BorderFactory.createLineBorder(Color.black));
         path.setBackground(Color.white);
         path.setBounds(90, 85, 150, 20);
+        findText.addKeyListener(new PreferencesAdder("file path"));
         add(path);
 
         JCheckBox[] match = new JCheckBox[2];
         //row 5
         match[0] = new JCheckBox("Match whole word only");
+        match[0].setSelected(prefs.getWholeWord());
         match[0].setBounds(10, 120, 200, 15);
         add(match[0]);
         // row 6
         match[1] = new JCheckBox("Match case");
+        match[1].setSelected(prefs.getCaseSensitive());
         match[1].setBounds(10, 140, 200, 15);
         add(match[1]);
 
@@ -227,4 +244,36 @@ public class FinderContent extends JPanel {
         add(findAllBtn);
         add(replaceAllBtn);
     }
+
+    private class PreferencesAdder implements KeyListener {
+        private String text = "";
+
+        private PreferencesAdder(String text){
+            this.text = text;
+        }
+
+        @Override
+        public void keyTyped( KeyEvent evt ) {
+            char c = evt.getKeyChar();
+            JTextField source = (JTextField) evt.getSource();
+            System.out.println(source.getText());
+
+            if( this.text.equals("find") ){
+                prefs.setFind(source.getText() + c);
+            } else if( this.text.equals("replace") ){
+                prefs.setReplace(source.getText() + c);
+            } else if( this.text.equals("find path") ){
+                prefs.setFindPath(source.getText() + c);
+            } else if( this.text.equals("file path") ){
+                prefs.setFilePath(source.getText() + c);
+            } else if( this.text.equals("filters") ){
+                prefs.setFilters(source.getText() + c);
+            }
+        }
+
+        @Override public void keyPressed( KeyEvent evt ) {;}
+
+        @Override public void keyReleased( KeyEvent evt ) {;}
+    }
+
 }
