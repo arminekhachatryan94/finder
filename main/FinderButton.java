@@ -259,6 +259,9 @@ public class FinderButton extends JButton implements ActionListener {
         String fils = this.filters.getText();
 
         int count = 0;
+        if( this.filters.getText().length() == 0 ){
+            return true;
+        }
         for( int i = 0; i < fils.length(); i++ ){
             if( fils.charAt(i) == ' ' ){
                 count++;
@@ -273,6 +276,8 @@ public class FinderButton extends JButton implements ActionListener {
                 }
             }
             logger.info(fs.length);
+        } else {
+            return true;
         }
         return ret;
     }
