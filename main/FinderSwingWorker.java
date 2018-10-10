@@ -105,6 +105,7 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
 
     @Override
     protected void done() {
+        if(this.panel.getComponents().length > 0){
         JScrollPane scroller = new JScrollPane(this.panel);
         scroller.setAutoscrolls(true);
 
@@ -117,6 +118,9 @@ class FinderSwingWorker extends SwingWorker<Integer, String> {
         if( this.confirm_replace ){
             this.confirm_replace = false;
             JOptionPane.showMessageDialog(null, "Successfully replaced everything");
+        }
+        } else {
+            JOptionPane.showMessageDialog(null, "No results found");
         }
     }
 

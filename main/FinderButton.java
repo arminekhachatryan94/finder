@@ -1,6 +1,9 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,8 +33,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -197,30 +204,19 @@ public class FinderButton extends JButton implements ActionListener {
     public void replaceInFile(ArrayList<String> lines) {
         try {
             // read file into oldText ArrayList
-            System.out.println("hi");
-
             BufferedReader file = new BufferedReader(new FileReader(this.path.getText()));
             ArrayList<String> oldText = new ArrayList<String>();
-            System.out.println("hello");
             String line;
-            System.out.println("hey");
             while ((line = file.readLine()) != null) {
-                System.out.println("read: " + line);
                 oldText.add(line);
             }
             file.close();
-            System.out.println("close");
 
             String outputString = "";
-            System.out.println("btn0");
             String newText = lines.get(0);
             String newLine = newText.substring(newText.indexOf(':')+2);
-            System.out.println("good?");
             System.out.println(newText);
-            System.out.println(newText.indexOf(':'));
-            System.out.println(newText.substring(4, newText.indexOf(':')));
             int line_num = Integer.parseInt(newText.substring(4, newText.indexOf(':')));
-            System.out.println("now?");
             int count = 0;
             for( int i = 0; i < oldText.size(); i++ ){
                 if( i+1 == line_num ){
@@ -302,7 +298,7 @@ public class FinderButton extends JButton implements ActionListener {
             if( found != null && found.size() > 0 ){
                 // create a frame and display the words found
                 JFrame frame = new JFrame();
-                frame.setSize(400, 400);
+                frame.setSize(400, 1000);
                 JPanel panel = new JPanel();
                 panel.setPreferredSize(new Dimension(400, 400));
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -320,11 +316,15 @@ public class FinderButton extends JButton implements ActionListener {
                     JLabel label = new JLabel();
                     label.setText("No occurrences of " + this.find.getText());
                 }
-                JScrollPane scroller = new JScrollPane(panel);
-                scroller.setAutoscrolls(true);
-                scroller.setAlignmentX(RIGHT_ALIGNMENT);
-
                 frame.add(panel, BorderLayout.PAGE_END);
+
+                JScrollPane scroller = new JScrollPane(panel);	
+                scroller.setAutoscrolls(true);	
+                scroller.setAlignmentX(LEFT_ALIGNMENT);
+                scroller.setViewportView(panel);
+                scroller.setPreferredSize(new Dimension(400, 400));
+                panel.revalidate();
+
                 frame.add(scroller, BorderLayout.CENTER);
                 frame.setVisible(true);
                 frame.setResizable(false);
@@ -343,7 +343,7 @@ public class FinderButton extends JButton implements ActionListener {
                 JFrame frame = new JFrame();
                 frame.setSize(400, 400);
                 JPanel panel = new JPanel();
-                panel.setPreferredSize(new Dimension(400, 400));
+                panel.setSize(new Dimension(400, 400));
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
                 BorderLayout borderLayout = new BorderLayout(10, 0);
@@ -366,7 +366,7 @@ public class FinderButton extends JButton implements ActionListener {
                 frame.add(panel, BorderLayout.PAGE_END);
                 frame.add(scroller, BorderLayout.CENTER);
                 frame.setVisible(true);
-                frame.setResizable(false);
+                frame.setResizable(true);
                 frame.pack();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
